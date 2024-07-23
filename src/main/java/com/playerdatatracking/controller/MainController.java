@@ -10,13 +10,17 @@ import com.playerdatatracking.repositories.MANUAL_TRACKED_DATARepository;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping(value = "/")
 public class MainController {
 
 	 @Autowired
@@ -25,27 +29,21 @@ public class MainController {
     @GetMapping("/players")
     public String listPlayers(Model model) {
         model.addAttribute("players", repository.findAll());
-        return "players";
+        return model.toString();
     }
 
     @PostMapping("/players")
-    public String addPlayer(@RequestParam String nombre,
-                            @RequestParam float nota,
-                            @RequestParam String club,
-                            @RequestParam(required = false) String posicion,
-                            @RequestParam(required = false) List<String> qualities,
-                            @RequestParam(required = false) String mostLikeDestination,
-                            @RequestParam(required = false) String likeable,
-                            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+    public String addPlayer(@RequestBody MANUAL_TRACKED_DATA request) {
         MANUAL_TRACKED_DATA player = new MANUAL_TRACKED_DATA();
-        player.setNombre(nombre);
-        player.setNota(nota);
-        player.setClub(club);
-        player.setPosicion(posicion);
+        player.setNombre(request.getNombre());
+        player.setNota(request.getNota());
+        player.setClub(request.getClub());
+        player.setPosicion(request.getPosicion());
+        List<String> qualities = request.getQualities();
         player.setQualities(qualities != null ? qualities : new ArrayList<>());
-        player.setMostLikeDestination(mostLikeDestination);
-        player.setLikeable(likeable);
-        player.setDate(date);
+        player.setMostLikeDestination(request.getMostLikeDestination());
+        player.setLikeable(request.getLikeable());
+        player.setDate(request.getDate());
         repository.save(player);
         return "redirect:/players";
     }
