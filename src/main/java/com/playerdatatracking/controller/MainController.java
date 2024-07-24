@@ -10,6 +10,7 @@ import com.playerdatatracking.entities.MANUAL_TRACKED_PLAYER;
 import com.playerdatatracking.exceptions.PlayerDataDBException;
 import com.playerdatatracking.exceptions.PlayerInputException;
 import com.playerdatatracking.operations.AddPlayer;
+import com.playerdatatracking.operations.GetAllPlayers;
 import com.playerdatatracking.repositories.MANUAL_TRACKED_PLAYERRepository;
 import com.playerdatatracking.responses.GenericResponse;
 
@@ -31,7 +32,8 @@ public class MainController {
 	@Autowired
 	private MANUAL_TRACKED_PLAYERRepository repository;
 //  ---------OPERATIONS---------
-	private AddPlayer operation = new AddPlayer();
+	private AddPlayer operationAddPlayer = new AddPlayer();
+	private GetAllPlayers operationGetAllPlayers = new GetAllPlayers();
 	
 	
 // 	---------RESPONSES---------	
@@ -40,16 +42,22 @@ public class MainController {
 	
 	
     @GetMapping("/players")
-    public String listPlayers(Model model) {
-        model.addAttribute("players", repository.findAll());
-        return model.toString();
+    public GenericResponse listPlayers(Model model) {
+    	operationGetAllPlayers.setPdClient(pdClient);
+    	try {
+    		response = operationGetAllPlayers.ejecutar();
+    	} catch (Exception e) {
+        	response.setCODE(Methods.exceptionCodeManagement(e));
+        	response.setDescription(e.getClass().getSimpleName() + "[]: " + e.getMessage());
+        }
+        return response;
     }
 
     @PostMapping("/players")
     public GenericResponse addPlayer(@RequestBody MANUAL_TRACKED_PLAYER request) throws PlayerDataDBException, PlayerInputException {
-    	operation.setPdClient(pdClient);
+    	operationAddPlayer.setPdClient(pdClient);
         try {
-        	response = operation.ejecutar(request);
+        	response = operationAddPlayer.ejecutar(request);
         } catch (Exception e) {
         	response.setCODE(Methods.exceptionCodeManagement(e));
         	response.setDescription(e.getClass().getSimpleName() + "[]: " + e.getMessage());
