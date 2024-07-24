@@ -30,5 +30,10 @@ public class PlayerDataClient {
 		}
 	}
 	
+	public MANUAL_TRACKED_PLAYER getPlayerbyName(String name) {
+		return repository.findByNombre(name);
+		
+	}
+	
 	
 }

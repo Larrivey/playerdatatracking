@@ -10,10 +10,11 @@ import com.playerdatatracking.common.Methods;
 import com.playerdatatracking.entities.MANUAL_TRACKED_PLAYER;
 import com.playerdatatracking.exceptions.MalformedRequestException;
 import com.playerdatatracking.exceptions.PlayerDataDBException;
+import com.playerdatatracking.exceptions.PlayerInputException;
 import com.playerdatatracking.repositories.MANUAL_TRACKED_PLAYERRepository;
 import com.playerdatatracking.responses.GenericResponse;
 
-public class AddPlayer implements GenericOperation {
+public class AddPlayer{
 
 	
 	
@@ -24,10 +25,14 @@ public class AddPlayer implements GenericOperation {
 
 
 	
-	public GenericResponse ejecutar (MANUAL_TRACKED_PLAYER player) throws MalformedRequestException, PlayerDataDBException {
+	public GenericResponse ejecutar (MANUAL_TRACKED_PLAYER player) throws MalformedRequestException, PlayerDataDBException, PlayerInputException {
 		ArrayList<String> errors = Methods.playerWrongValues(player);
 		response = new GenericResponse();
 		if(errors.size()==0) {
+			MANUAL_TRACKED_PLAYER dummy = pdClient.getPlayerbyName(player.getNombre());
+			if (dummy!=null) {
+				throw new PlayerInputException("PLayer already registered in MANUAL_TRACKED_PLAYER");
+			}
 			boolean operationDone = pdClient.savePlayer(player);
 			if (operationDone) {
 				response.setCODE(Constants.CODE_OK);

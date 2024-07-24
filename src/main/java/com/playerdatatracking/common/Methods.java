@@ -16,6 +16,22 @@ public class Methods {
 			errors.add("Club");
 		return errors;
 	}
-	
+	public static int exceptionCodeManagement(Exception e) {
+		if (e==null)
+			return -1;
+		String name = e.getClass().getSimpleName();
+		
+		switch (name) {
+			case "MalformedRequestException":
+				return Constants.CODE_ERR_MALFORMED_PARAMS;
+			case "PlayerDataDBException":
+				return Constants.CODE_ERR_PDDB;
+			case "PlayerInputException":
+				return Constants.CODE_ERR_INPUT_EXCEPTION;
+			default:
+				return -1;
+				
+		}
+	}
 	
 }
