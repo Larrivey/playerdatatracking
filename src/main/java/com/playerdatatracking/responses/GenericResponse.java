@@ -1,22 +1,25 @@
 package com.playerdatatracking.responses;
 
-public class ManualDataResponse {
+public class GenericResponse {
 
 	
-	int CODE;
+	int code;
 	String description;
 	
 	
-	public ManualDataResponse(int cODE, String description) {
+	public GenericResponse() {
 		super();
-		CODE = cODE;
+	}
+	public GenericResponse(int cODE, String description) {
+		super();
+		code = cODE;
 		this.description = description;
 	}
 	public int getCODE() {
-		return CODE;
+		return code;
 	}
 	public void setCODE(int cODE) {
-		CODE = cODE;
+		code = cODE;
 	}
 	public String getDescription() {
 		return description;
@@ -26,7 +29,7 @@ public class ManualDataResponse {
 	}
 	@Override
 	public String toString() {
-		return "ManualDataResponse [CODE=" + CODE + ", description=" + description + "]";
+		return "ManualDataResponse [CODE=" + code + ", description=" + description + "]";
 	}
 	
 	
