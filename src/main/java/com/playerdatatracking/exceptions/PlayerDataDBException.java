@@ -2,8 +2,8 @@ package com.playerdatatracking.exceptions;
 
 public class PlayerDataDBException extends Exception {
     // Constructor que acepta un mensaje
-    public PlayerDataDBException(String message) {
-        super(message);
+    public PlayerDataDBException(String e) {
+        super(e);
     }
 
     // Constructor que acepta un mensaje y una causa

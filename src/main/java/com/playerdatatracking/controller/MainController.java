@@ -56,6 +56,9 @@ public class MainController {
         } catch (MalformedRequestException e) {
         	response.setCODE(Constants.CODE_ERR_MALFORMED_PARAMS);
         	response.setDescription(e.getMessage());
+        } catch (PlayerDataDBException e) {
+        	response.setCODE(Constants.CODE_ERR_PDDB);
+        	response.setDescription(e.getMessage());
         }
         return response;
     }

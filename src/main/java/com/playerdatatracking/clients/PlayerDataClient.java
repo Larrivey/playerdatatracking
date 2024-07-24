@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import com.playerdatatracking.entities.MANUAL_TRACKED_PLAYER;
+import com.playerdatatracking.exceptions.PlayerDataDBException;
 import com.playerdatatracking.repositories.MANUAL_TRACKED_PLAYERRepository;
 
 import jakarta.transaction.Transactional;
@@ -19,13 +20,13 @@ public class PlayerDataClient {
 	@Autowired
 	private MANUAL_TRACKED_PLAYERRepository repository;
 	
-	
-	public boolean savePlayer(MANUAL_TRACKED_PLAYER player) {
+	@Transactional
+	public boolean savePlayer(MANUAL_TRACKED_PLAYER player) throws PlayerDataDBException {
 		try {
 			repository.save(player);
 			return true;
 		} catch (Exception e) {
-			return false;
+			throw new PlayerDataDBException(e.getMessage());
 		}
 	}
 	
