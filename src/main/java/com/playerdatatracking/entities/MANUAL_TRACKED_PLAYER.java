@@ -9,8 +9,8 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "MANUAL_TRACKED_DATA", uniqueConstraints = @UniqueConstraint(columnNames = "nombre"))
-public class MANUAL_TRACKED_DATA {
+@Table(name = "MANUAL_TRACKED_PLAYER", uniqueConstraints = @UniqueConstraint(columnNames = "nombre"))
+public class MANUAL_TRACKED_PLAYER {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
