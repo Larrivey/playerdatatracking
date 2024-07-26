@@ -12,7 +12,7 @@ import com.playerdatatracking.responses.GenericResponse;
 public class GetAllPlayers {
 
 	
-private PlayerDataClient pdClient;
+	private PlayerDataClient pdClient;
 	
 	private GenericResponse response = new GenericResponse();
 	

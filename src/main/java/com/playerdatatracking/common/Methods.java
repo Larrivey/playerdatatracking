@@ -28,6 +28,10 @@ public class Methods {
 				return Constants.CODE_ERR_PDDB;
 			case "PlayerInputException":
 				return Constants.CODE_ERR_INPUT_EXCEPTION;
+			case "IOException":
+				return Constants.CODE_ERR_XSL_READING_EXCEPTION;
+			case "ParseException":
+				return Constants.CODE_ERR_PARSE_EXCEPTION;
 			default:
 				return -1;
 				

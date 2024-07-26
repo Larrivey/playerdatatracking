@@ -36,9 +36,12 @@ public class PlayerDataClient {
 		}
 	}
 	@Transactional
-	public MANUAL_TRACKED_PLAYER getPlayerbyName(String name) {
-		return mpRepository.findByNombre(name);
-		
+	public MANUAL_TRACKED_PLAYER getPlayerbyName(String name) throws PlayerDataDBException {
+		try {
+			return mpRepository.findByNombre(name);
+		} catch (Exception e) {
+			throw new PlayerDataDBException(e.getMessage());
+		}
 	}
 	@Transactional
 	public List<MANUAL_TRACKED_PLAYER> getAllPlayers() {
