@@ -1,10 +1,9 @@
-package com.playerdatatracking.operations;
+package com.playerdatatracking.operations.manualdata;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
@@ -14,7 +13,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
@@ -56,8 +54,8 @@ private GenericResponse response = new GenericResponse();
 	}
 	
 	
-	public GenericResponse ejecutar(String filePath) throws PlayerDataDBException, ParseException {
-            Resource resource = resourceLoader.getResource("classpath:" + filePath);
+	public GenericResponse ejecutar(String filePath) throws PlayerDataDBException {
+            Resource resource = resourceLoader.getResource(filePath);
             try (FileInputStream fis = new FileInputStream(resource.getFile().getPath()); 
              Workbook workbook = new XSSFWorkbook(fis)) {
 
@@ -76,25 +74,44 @@ private GenericResponse response = new GenericResponse();
                 if (isAlreadyInDB==null) {
                 	MANUAL_TRACKED_PLAYER player = new MANUAL_TRACKED_PLAYER();
                 	player.setNombre(name);
-                	player.setNota((float) row.getCell(1).getNumericCellValue());
-                	player.setClub(row.getCell(2).getStringCellValue());
-                	player.setPosicion(row.getCell(3).getStringCellValue());
-                	player.setMostLikeDestination(row.getCell(5).getStringCellValue());
-                	player.setLikeable(row.getCell(6).getStringCellValue());
-                	List<String> qualities = Arrays.asList(row.getCell(4).getStringCellValue().split("\\s*,\\s*"));
-                	player.setQualities(qualities);
-                	
-                	
-                	String fechaInsercion = row.getCell(7).getStringCellValue();
-                	Date date = null;
-                	if (fechaInsercion!=null || !fechaInsercion.equals("")) {
-                		date = formatter.parse(fechaInsercion);
+                	try {
+                		player.setNota((float) row.getCell(1).getNumericCellValue());
+                	} catch (Exception e) {
+                		break;
                 	}
-                	else
-                		date = new Date();
-                	player.setDate(date);
-                	
-                	
+                	try {
+                		player.setClub(row.getCell(2).getStringCellValue());
+                	} catch (Exception e) {
+                		break;
+                	}
+                	try {
+                    	player.setPosicion(row.getCell(3).getStringCellValue());
+                	} catch (Exception e) {
+                		player.setPosicion("");
+                	}
+                	try {
+                    	player.setMostLikeDestination(row.getCell(5).getStringCellValue());
+                	} catch (Exception e) {
+                		player.setMostLikeDestination("not clear");
+                	}
+                	try {
+                    	player.setLikeable(row.getCell(6).getStringCellValue());
+                	} catch (Exception e) {
+                		player.setLikeable("not clear");
+                	}
+                	try {
+                		List<String> qualities = Arrays.asList(row.getCell(4).getStringCellValue().split("\\s*,\\s*"));
+                		player.setQualities(qualities);
+                	} catch (Exception e) {
+                		List<String> qualities = new ArrayList<String>();
+                		player.setQualities(qualities);
+                	}
+                	try {
+                		Date fechaInsercion = row.getCell(7).getDateCellValue();
+                		player.setDate(fechaInsercion);
+                	} catch (Exception e){
+                		player.setDate(new Date());
+                	}
                 	pdClient.savePlayer(player);
                 }
             }
@@ -103,10 +120,6 @@ private GenericResponse response = new GenericResponse();
             return response;
 
         } catch (IOException e) {
-            response.setCODE(Methods.exceptionCodeManagement(e));
-            response.setDescription(e.getClass().getSimpleName() + "[]: " + e.getMessage());
-            return response;
-        } catch (ParseException e) {
             response.setCODE(Methods.exceptionCodeManagement(e));
             response.setDescription(e.getClass().getSimpleName() + "[]: " + e.getMessage());
             return response;

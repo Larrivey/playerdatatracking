@@ -33,16 +33,37 @@ public class MANUAL_TRACKED_PLAYER {
 
     private String mostLikeDestination;
     private String likeable;
+    private Integer age;
 
     @Temporal(TemporalType.DATE)
     private Date date;
+    
+    @Temporal(TemporalType.DATE)
+    @Column(nullable = false)
+    private Date birth;
 
     // Getters y setters
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public Date getBirth() {
+		return birth;
+	}
+
+	public void setBirth(Date birth) {
+		this.birth = birth;
+	}
+
+	public void setId(Long id) {
         this.id = id;
     }
 

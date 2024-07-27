@@ -1,4 +1,4 @@
-package com.playerdatatracking.operations;
+package com.playerdatatracking.operations.manualdata;
 
 import java.util.ArrayList;
 import java.util.List;
