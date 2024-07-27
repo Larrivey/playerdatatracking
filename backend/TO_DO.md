@@ -4,3 +4,6 @@
 - Trata de error del nullPointer exception
 - Gestion de errores en los inputs
 - Diseño de datos para informacion de equipos y jugadores
+- Esquemas de flujos y diseño de arquitectura y clases
+- Json de operaciones de postman
+- Redacción del README principal
