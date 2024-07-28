@@ -1,0 +1,18 @@
+<div>
+  <button (click)="toggleTableVisibility()">
+    {{ isTableVisible ? 'Ocultar' : 'Mostrar' }} Tabla
+  </button>
+</div>
+<div>
+  <table *ngIf="isTableVisible">
+    <!-- Aquí va el contenido de la tabla -->
+    <tr>
+      <th>Columna 1</th>
+      <th>Columna 2</th>
+    </tr>
+    <tr>
+      <td>Dato 1</td>
+      <td>Dato 2</td>
+    </tr>
+  </table>
+</div>

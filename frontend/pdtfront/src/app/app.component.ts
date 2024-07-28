@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { HelloWorldComponent } from './components/hello-world/hello-world.component';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,7 @@ import { RouterOutlet } from '@angular/router';
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
+  imports: [HelloWorldComponent]
 })
 export class AppComponent {
   title = 'pdtfront';
