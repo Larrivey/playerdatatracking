@@ -16,7 +16,7 @@ public class GetAllLeagues {
 	
 	private ApiFootballClient restClient;
 	private GenericResponse response;
-	String filePath = "src/main/resources/json/response.json";
+	String filePath = "src/main/resources/json/apiFotball/leagues/response.json";
 	
 	
 	public GenericResponse ejecutar () throws Exception {
