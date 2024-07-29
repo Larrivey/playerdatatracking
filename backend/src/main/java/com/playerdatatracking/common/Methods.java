@@ -43,6 +43,10 @@ public class Methods {
 				return Constants.CODE_ERR_XSL_READING_EXCEPTION;
 			case "ParseException":
 				return Constants.CODE_ERR_PARSE_EXCEPTION;
+			case "NotFilledJsonFileResponse":
+				return Constants.CODE_ERR_NOT_FILLED_JSON_RESPONSE;
+			case "NotCreatedJsonFileResponse":
+				return Constants.CODE_ERR_NOT_CREATED_JSON_RESPONSE;
 			default:
 				return -1;
 				

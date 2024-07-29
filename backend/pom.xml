@@ -56,6 +56,13 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
+
+		<dependency>
+		    <groupId>org.asynchttpclient</groupId>
+		    <artifactId>async-http-client</artifactId>
+		    <version>2.12.0</version>
+		</dependency>
+
         <!-- Dependencia de Spring Boot Starter Test (para pruebas) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

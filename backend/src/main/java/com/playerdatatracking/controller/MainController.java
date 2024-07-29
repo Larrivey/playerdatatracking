@@ -13,6 +13,7 @@ import com.playerdatatracking.common.Methods;
 import com.playerdatatracking.entities.MANUAL_TRACKED_PLAYER;
 import com.playerdatatracking.exceptions.PlayerDataDBException;
 import com.playerdatatracking.exceptions.PlayerInputException;
+import com.playerdatatracking.operations.ApiFootball.GetAllLeagues;
 import com.playerdatatracking.operations.manualdata.AddPlayer;
 import com.playerdatatracking.operations.manualdata.GetAllPlayers;
 import com.playerdatatracking.operations.manualdata.XslImport;
@@ -47,6 +48,7 @@ public class MainController {
 	private AddPlayer operationAddPlayer = new AddPlayer();
 	private GetAllPlayers operationGetAllPlayers = new GetAllPlayers();
 	private XslImport operationXslImport = new XslImport();
+	private GetAllLeagues operationGetAllLeagues = new GetAllLeagues();
 	
 	
 // 	---------RESPONSES---------	
@@ -65,6 +67,7 @@ public class MainController {
         }
         return response;
     }
+    
     @PostMapping("/xslBackendImport")
     public GenericResponse xslImport() {
     	String path = env.getProperty("xsl.path");
@@ -78,7 +81,18 @@ public class MainController {
     	}
     	return response;
     }
-
+    
+    @GetMapping("/leagues")
+    public GenericResponse getAllLeagues() {
+    	try {
+    		response = operationGetAllLeagues.ejecutar();
+    	} catch (Exception e) {
+    		response.setCODE(Methods.exceptionCodeManagement(e));
+    		response.setDescription(e.getClass().getSimpleName() + "[]: " + e.getMessage());
+    	}
+    	return response;
+    }
+    
     @PostMapping("/player")
     public GenericResponse addPlayer(@RequestBody GenericRequest request) throws PlayerDataDBException, PlayerInputException, ParseException {
     	operationAddPlayer.setPdClient(pdClient);

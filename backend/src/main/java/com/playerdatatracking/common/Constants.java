@@ -15,4 +15,6 @@ public class Constants {
 	public static final int CODE_ERR_INPUT_EXCEPTION = 3;
 	public static final int CODE_ERR_XSL_READING_EXCEPTION = 4;
 	public static final int CODE_ERR_PARSE_EXCEPTION = 5;
+	public static final int CODE_ERR_NOT_FILLED_JSON_RESPONSE = 6;
+	public static final int CODE_ERR_NOT_CREATED_JSON_RESPONSE = 7;
 }
