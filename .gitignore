@@ -1,3 +1,4 @@
+# Ignorar archivos y directorios del backend
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -31,3 +32,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Ignorar archivos y directorios del frontend
+/frontend/playerdatatrackingfront/node_modules/
+/frontend/playerdatatrackingfront/.angular/
