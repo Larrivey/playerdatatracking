@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "pdtfront": {
+    "playerdatatrackingfront": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/pdtfront",
+            "outputPath": "dist/playerdatatrackingfront",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -29,12 +29,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -64,10 +59,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "pdtfront:build:production"
+              "buildTarget": "playerdatatrackingfront:build:production"
             },
             "development": {
-              "buildTarget": "pdtfront:build:development"
+              "buildTarget": "playerdatatrackingfront:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -99,6 +94,6 @@
     }
   },
   "cli": {
-    "analytics": "ad8cb5b9-7440-400e-9bc3-4f3841bef322"
+    "analytics": false
   }
 }
