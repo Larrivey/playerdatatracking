@@ -34,4 +34,5 @@ build/
 .vscode/
 
 # Ignorar archivos y directorios del frontend
-playerdatatracking/frontend/node_modules/
+/frontend/playerdatatrackingfront/node_modules/
+/frontend/playerdatatrackingfront/.angular/
