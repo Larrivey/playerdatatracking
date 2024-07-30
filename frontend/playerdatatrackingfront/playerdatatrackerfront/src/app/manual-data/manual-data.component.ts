@@ -25,10 +25,7 @@ export class ManualDataComponent {
       { column1: 'Dato 3.1', column2: 'Dato 3.2' }
     ];
 
-    // Future HTTP request:
-    // this.http.get<any[]>('http://localhost:8080/api/data').subscribe(response => {
-    //   this.data = response;
-    // });
+    console.log(this.data); // Verificar que los datos se están asignando correctamente.
   }
 
   navigateToHome() {
