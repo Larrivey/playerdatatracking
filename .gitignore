@@ -35,4 +35,6 @@ build/
 
 # Ignorar archivos y directorios del frontend
 /frontend/playerdatatrackingfront/node_modules/
+/frontend/playerdatatrackingfront/playerdatatrackingfront/node_modules/
 /frontend/playerdatatrackingfront/.angular/
+/frontend/playerdatatrackingfront/playerdatatrackingfront/.angular/
