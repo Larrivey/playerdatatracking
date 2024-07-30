@@ -1,5 +1,13 @@
 # LISTA DE TAREAS POR HACER BREVEMENTE DESCRITAS RELACIONADAS CON EL BACKEND
+- Lógica y gestión de keys api football
+- guardar las keys de forma encriptada
+- Devolución y prevencion de error cuando la api no devuelve más datos, la key no es valida o la llamada es erronea aunque devuelva json
+- Devolución de parámetros en formato json en GetAllPlayers
+- Ligas en BBDD y script de actualizacion de ligas
+- Paises en BBDD con sus correspondiente tabla y asociacion
+- Actualizar scripts de creacion de tablas
 - Delete Player teniendo en cuenta la relación en cascada con PLAYER_QUALITIES
+- Update Player recibiendo información de un formulario
 - Nueva tabla para insertar jugadores por scoutear y todas las operaciones relacionales de insercion correspondiente ademas de modificar el excel para que se haga
 - Trata de error del nullPointer exception
 - Gestion de errores en los inputs
