@@ -6,7 +6,7 @@ import java.io.FileReader;
 
 import com.playerdatatracking.clients.ApiFootballClient;
 import com.playerdatatracking.common.Constants;
-import com.playerdatatracking.entities.MANUAL_TRACKED_PLAYER;
+import com.playerdatatracking.entities.players.MANUAL_TRACKED_PLAYER;
 import com.playerdatatracking.exceptions.NotCreatedJsonFileResponse;
 import com.playerdatatracking.exceptions.NotFilledJsonFileResponse;
 import com.playerdatatracking.responses.GenericResponse;

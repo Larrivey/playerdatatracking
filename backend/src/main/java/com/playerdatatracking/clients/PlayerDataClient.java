@@ -8,11 +8,11 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import com.playerdatatracking.entities.MANUAL_TRACKED_PLAYER;
-import com.playerdatatracking.entities.PLAYER_QUALITIES;
+import com.playerdatatracking.entities.players.MANUAL_TRACKED_PLAYER;
+import com.playerdatatracking.entities.players.PLAYER_QUALITIES;
 import com.playerdatatracking.exceptions.PlayerDataDBException;
-import com.playerdatatracking.repositories.MANUAL_TRACKED_PLAYERRepository;
-import com.playerdatatracking.repositories.PLAYER_QUALITIESRepository;
+import com.playerdatatracking.repositories.players.MANUAL_TRACKED_PLAYERRepository;
+import com.playerdatatracking.repositories.players.PLAYER_QUALITIESRepository;
 
 import jakarta.transaction.Transactional;
 

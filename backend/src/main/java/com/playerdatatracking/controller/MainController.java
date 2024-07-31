@@ -10,14 +10,14 @@ import org.springframework.ui.Model;
 import com.playerdatatracking.clients.PlayerDataClient;
 import com.playerdatatracking.common.Constants;
 import com.playerdatatracking.common.Methods;
-import com.playerdatatracking.entities.MANUAL_TRACKED_PLAYER;
+import com.playerdatatracking.entities.players.MANUAL_TRACKED_PLAYER;
 import com.playerdatatracking.exceptions.PlayerDataDBException;
 import com.playerdatatracking.exceptions.PlayerInputException;
 import com.playerdatatracking.operations.ApiFootball.GetAllLeagues;
 import com.playerdatatracking.operations.manualdata.AddPlayer;
 import com.playerdatatracking.operations.manualdata.GetAllPlayers;
 import com.playerdatatracking.operations.manualdata.XslImport;
-import com.playerdatatracking.repositories.MANUAL_TRACKED_PLAYERRepository;
+import com.playerdatatracking.repositories.players.MANUAL_TRACKED_PLAYERRepository;
 import com.playerdatatracking.requests.GenericRequest;
 import com.playerdatatracking.responses.GenericResponse;
 

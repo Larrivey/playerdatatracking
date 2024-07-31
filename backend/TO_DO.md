@@ -11,6 +11,7 @@
 - Nueva tabla para insertar jugadores por scoutear y todas las operaciones relacionales de insercion correspondiente ademas de modificar el excel para que se haga
 - Trata de error del nullPointer exception
 - Gestion de errores en los inputs
+- Sistema de logs y tabla de guardado de operaciones realizadas
 - Diseño de datos para informacion de equipos y jugadores
 - Esquemas de flujos y diseño de arquitectura y clases
 - Json de operaciones de postman

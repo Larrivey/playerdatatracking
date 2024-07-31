@@ -1,4 +1,4 @@
-package com.playerdatatracking.entities;
+package com.playerdatatracking.entities.players;
 
 
 
