@@ -38,7 +38,8 @@ public class KeysManagement {
 			throw new ApiKeyManagementException("Error al encriptar la clave de conexion con la api aportada");
 		}
 		try {
-			storedKey = pdClient.getKey(cryptedKey);
+			//pdClient.getKey(hash)
+			storedKey = pdClient.getKey("86H5fJ+smEgQNgUkS9naD0vhTTX+FRrQ7AT8BhPuprnRuwzi2fEqwuVnsotQsEAcgKkryUzn7ehs1MCHCSfgYA==");
 			if (storedKey==null)
 				throw new ApiKeyManagementException("Api Key no encontrada");
 			else {
@@ -46,6 +47,7 @@ public class KeysManagement {
 				if (!uncryptedKey.equals(key)) {
 					throw new ApiKeyManagementException("Error al desencriptar la contraseña ya que no coincide con apiKey");
 				}
+				storedKey.setValor(uncryptedKey);
 			}
 		} catch (Exception e) {
 			throw e;

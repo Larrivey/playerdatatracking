@@ -55,21 +55,26 @@ public class AESCrypto {
 
     // Encriptar
     public String encrypt(String input) throws Exception {
-    	IvParameterSpec iv = generateIv();
-    	SecretKey key = decodeKey(env.getProperty("apikeys.secret"));
+        IvParameterSpec iv = generateIv();
+        SecretKey key = decodeKey(env.getProperty("apikeys.secret"));
         Cipher cipher = Cipher.getInstance(algorithm);
         cipher.init(Cipher.ENCRYPT_MODE, key, iv);
         byte[] cipherText = cipher.doFinal(input.getBytes(StandardCharsets.UTF_8));
-        return Base64.getEncoder().encodeToString(cipherText);
+        // Concatenar IV y texto cifrado y codificar en Base64
+        byte[] ivAndCipherText = new byte[iv.getIV().length + cipherText.length];
+        System.arraycopy(iv.getIV(), 0, ivAndCipherText, 0, iv.getIV().length);
+        System.arraycopy(cipherText, 0, ivAndCipherText, iv.getIV().length, cipherText.length);
+        return Base64.getEncoder().encodeToString(ivAndCipherText);
     }
 
     // Desencriptar
     public String decrypt(String cipherText) throws Exception {
-    	IvParameterSpec iv = generateIv();
-    	SecretKey key = decodeKey(env.getProperty("apikeys.secret"));
+        byte[] decodedCipherText = Base64.getDecoder().decode(cipherText);
+        IvParameterSpec iv = new IvParameterSpec(decodedCipherText, 0, 16);
+        SecretKey key = decodeKey(env.getProperty("apikeys.secret"));
         Cipher cipher = Cipher.getInstance(algorithm);
         cipher.init(Cipher.DECRYPT_MODE, key, iv);
-        byte[] plainText = cipher.doFinal(Base64.getDecoder().decode(cipherText));
+        byte[] plainText = cipher.doFinal(decodedCipherText, 16, decodedCipherText.length - 16);
         return new String(plainText, StandardCharsets.UTF_8);
     }
     
