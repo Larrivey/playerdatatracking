@@ -8,4 +8,6 @@ import com.playerdatatracking.entities.keys.Keys;
 @Repository
 public interface API_FOOTBALL_KEYSRepository extends JpaRepository<Keys, Long>{
 
+	
+	Keys findByValor(String valor);
 }

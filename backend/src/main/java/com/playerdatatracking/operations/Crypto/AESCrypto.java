@@ -1,0 +1,89 @@
+package com.playerdatatracking.operations.Crypto;
+
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
+
+import org.springframework.core.env.Environment;
+
+import com.playerdatatracking.common.Constants;
+import com.playerdatatracking.exceptions.SecretKeyBadGeneratedException;
+import com.playerdatatracking.responses.GenericResponse;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+
+public class AESCrypto {
+	private static String algorithm = "AES/CBC/PKCS5Padding";
+	
+	private Environment env;
+	
+	public void setEnv(Environment extenv) {
+		this.env = extenv;
+	}
+	
+	
+	
+    // Generar una clave AES
+    public SecretKey generateKey(int n) throws Exception {
+        KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+        keyGenerator.init(n);
+        SecretKey key = keyGenerator.generateKey();
+        return key;
+    }
+
+    // Obtener un vector de inicialización (IV)
+    public IvParameterSpec generateIv() {
+        byte[] iv = new byte[16];
+        new java.security.SecureRandom().nextBytes(iv);
+        return new IvParameterSpec(iv);
+    }
+
+    // Convertir la clave en String para almacenamiento
+    public String encodeKey(SecretKey key) {
+        return Base64.getEncoder().encodeToString(key.getEncoded());
+    }
+
+    // Convertir el String en clave para uso
+    public SecretKey decodeKey(String keyStr) {
+        byte[] decodedKey = Base64.getDecoder().decode(keyStr);
+        return new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
+    }
+
+    // Encriptar
+    public String encrypt(String input) throws Exception {
+    	IvParameterSpec iv = generateIv();
+    	SecretKey key = decodeKey(env.getProperty("apikeys.secret"));
+        Cipher cipher = Cipher.getInstance(algorithm);
+        cipher.init(Cipher.ENCRYPT_MODE, key, iv);
+        byte[] cipherText = cipher.doFinal(input.getBytes(StandardCharsets.UTF_8));
+        return Base64.getEncoder().encodeToString(cipherText);
+    }
+
+    // Desencriptar
+    public String decrypt(String cipherText) throws Exception {
+    	IvParameterSpec iv = generateIv();
+    	SecretKey key = decodeKey(env.getProperty("apikeys.secret"));
+        Cipher cipher = Cipher.getInstance(algorithm);
+        cipher.init(Cipher.DECRYPT_MODE, key, iv);
+        byte[] plainText = cipher.doFinal(Base64.getDecoder().decode(cipherText));
+        return new String(plainText, StandardCharsets.UTF_8);
+    }
+    
+    
+    
+    public GenericResponse getNewSecretKey() throws Exception {
+    	try {
+	    	GenericResponse response = new GenericResponse();
+	    	SecretKey key = generateKey(256);
+	    	response.setCODE(Constants.CODE_OK);
+	    	response.setDescription(encodeKey(key));
+	    	return response;
+    	} catch (Exception e) {
+    		throw new SecretKeyBadGeneratedException(e.getMessage(), e.getCause());
+    	}
+    }
+}

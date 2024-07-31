@@ -43,11 +43,6 @@ private GenericResponse response = new GenericResponse();
         this.resourceLoader = resourceLoader;
     }
 	
-	
-	
-	public PlayerDataClient getPdClient() {
-		return pdClient;
-	}
 
 	public void setPdClient(PlayerDataClient pdClient) {
 		this.pdClient = pdClient;

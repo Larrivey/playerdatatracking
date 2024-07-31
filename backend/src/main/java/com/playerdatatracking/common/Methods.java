@@ -47,6 +47,10 @@ public class Methods {
 				return Constants.CODE_ERR_NOT_FILLED_JSON_RESPONSE;
 			case "NotCreatedJsonFileResponse":
 				return Constants.CODE_ERR_NOT_CREATED_JSON_RESPONSE;
+			case "SecretKeyBadGeneratedException":
+				return Constants.CODE_ERR_GENERATED_KEY;
+			case "ApiKeyManagementException":
+				return Constants.CODE_ERR_KEY_MNGMT;
 			default:
 				return -1;
 				

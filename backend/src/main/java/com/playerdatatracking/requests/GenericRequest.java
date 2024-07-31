@@ -21,7 +21,13 @@ public class GenericRequest {
     private String age;
     private String date;
     private String birth;
-
+    private String newKey;
+    private String mail;
+    private String plan;
+    private String apiKey;
+    private int idService; 
+    
+    
     // Getters y setters
     public Long getId() {
         return id;
@@ -110,4 +116,46 @@ public class GenericRequest {
     public void setDate(String date) {
         this.date = date;
     }
+
+	public String getNewKey() {
+		return newKey;
+	}
+
+	public void setNewKey(String newKey) {
+		this.newKey = newKey;
+	}
+
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	public String getPlan() {
+		return plan;
+	}
+
+	public void setPlan(String plan) {
+		this.plan = plan;
+	}
+
+	public int getIdService() {
+		return idService;
+	}
+
+	public void setIdService(int idService) {
+		this.idService = idService;
+	}
+
+	public String getApiKey() {
+		return apiKey;
+	}
+
+	public void setApiKey(String apiKey) {
+		this.apiKey = apiKey;
+	}
+    
+    
 }

@@ -8,9 +8,11 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import com.playerdatatracking.entities.keys.Keys;
 import com.playerdatatracking.entities.players.MANUAL_TRACKED_PLAYER;
 import com.playerdatatracking.entities.players.PLAYER_QUALITIES;
 import com.playerdatatracking.exceptions.PlayerDataDBException;
+import com.playerdatatracking.repositories.keys.API_FOOTBALL_KEYSRepository;
 import com.playerdatatracking.repositories.players.MANUAL_TRACKED_PLAYERRepository;
 import com.playerdatatracking.repositories.players.PLAYER_QUALITIESRepository;
 
@@ -25,6 +27,8 @@ public class PlayerDataClient {
 	private MANUAL_TRACKED_PLAYERRepository mpRepository;
 	@Autowired
 	private PLAYER_QUALITIESRepository pqRepository;
+	@Autowired
+	private API_FOOTBALL_KEYSRepository akRepository;
 	
 	@Transactional
 	public boolean savePlayer(MANUAL_TRACKED_PLAYER player) throws PlayerDataDBException {
@@ -64,5 +68,23 @@ public class PlayerDataClient {
 		}
 	}
 	
+	@Transactional
+	public boolean saveApiKey(Keys newKey) throws PlayerDataDBException{
+		try{
+			akRepository.save(newKey);
+			return true;
+		} catch (Exception e) {
+			throw new PlayerDataDBException(e.getMessage());
+		}
+	}
+	@Transactional
+	public Keys getKey (String key) throws PlayerDataDBException{
+		try {
+			Keys storedKey = akRepository.findByValor(key);
+			return storedKey;
+		} catch (Exception e) {
+			throw new PlayerDataDBException(e.getMessage());
+		}
+	}
 	
 }

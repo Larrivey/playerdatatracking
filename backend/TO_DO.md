@@ -1,7 +1,7 @@
 # LISTA DE TAREAS POR HACER BREVEMENTE DESCRITAS RELACIONADAS CON EL BACKEND
 - Lógica y gestión de keys api football
-- guardar las keys de forma encriptada
 - Devolución y prevencion de error cuando la api no devuelve más datos, la key no es valida o la llamada es erronea aunque devuelva json
+- En caso de obtener un error controlado cuando la petición no es valida por un problema de la KEY o de la cuenta, hacer metodo para que key.is_valid = false
 - Devolución de parámetros en formato json en GetAllPlayers
 - Ligas en BBDD y script de actualizacion de ligas
 - Paises en BBDD con sus correspondiente tabla y asociacion
@@ -10,9 +10,12 @@
 - Update Player recibiendo información de un formulario
 - Nueva tabla para insertar jugadores por scoutear y todas las operaciones relacionales de insercion correspondiente ademas de modificar el excel para que se haga
 - Trata de error del nullPointer exception
-- Gestion de errores en los inputs
+- Validacion de parametros en las requests
 - Sistema de logs y tabla de guardado de operaciones realizadas
 - Diseño de datos para informacion de equipos y jugadores
 - Esquemas de flujos y diseño de arquitectura y clases
 - Json de operaciones de postman
 - Redacción del README principal
+- Revisar si la clave de encriptacion (secret_key) puede almacenarse en un certificado o de alguna forma mas segura
+- Considerar usar lombok
+- Separar controlador en varias clases

@@ -1,11 +1,14 @@
 package com.playerdatatracking.responses;
 
-public class GenericResponse {
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class GenericResponse<E> {
 
 	
 	int code;
 	String description;
-	
+	E entity;
 	
 	public GenericResponse() {
 		super();
@@ -15,6 +18,7 @@ public class GenericResponse {
 		code = cODE;
 		this.description = description;
 	}
+	
 	public int getCODE() {
 		return code;
 	}
@@ -27,9 +31,17 @@ public class GenericResponse {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	public E getEntity() {
+		return entity;
+	}
+	public void setEntity(E entity) {
+		this.entity = entity;
+	}
+	
 	@Override
 	public String toString() {
-		return "ManualDataResponse [CODE=" + code + ", description=" + description + "]";
+		return "ManualDataResponse [CODE=" + code + ", description=" + description + ", " + entity.getClass() + "= " + entity.toString() +"]";
 	}
 	
 	

@@ -1,4 +1,4 @@
-package com.playerdatatracking.operations.ApiFootball;
+package com.playerdatatracking.operations.apiFootball;
 
 
 import java.io.File;
