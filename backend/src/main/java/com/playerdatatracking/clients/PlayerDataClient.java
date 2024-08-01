@@ -97,4 +97,16 @@ public class PlayerDataClient {
 		}
 	}
 	
+	@Transactional
+	public List<Keys> getKeysByMail (String mail)throws PlayerDataDBException{
+		try {
+			List<Keys> storedKeys = akRepository.findByMail(mail);
+			if(storedKeys!=null)
+				return storedKeys;
+			return new ArrayList<Keys>();
+		} catch (Exception e) {
+			throw new PlayerDataDBException(e.getMessage());
+		}
+	}
+	
 }

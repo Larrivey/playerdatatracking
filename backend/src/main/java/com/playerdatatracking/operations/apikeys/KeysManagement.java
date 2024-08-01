@@ -1,5 +1,7 @@
 package com.playerdatatracking.operations.apikeys;
 
+import java.util.List;
+
 import org.springframework.core.env.Environment;
 
 import com.playerdatatracking.clients.PlayerDataClient;
@@ -25,6 +27,19 @@ public class KeysManagement {
 		this.pdClient = pdClient;
 	}
 	
+	
+	public GenericResponse<Keys> getKeyByMail(String mail) throws Exception{
+		GenericResponse <Keys> response = new GenericResponse<>();
+		try {
+			List<Keys> userKeys = pdClient.getKeysByMail(mail);
+			response.setCODE(Constants.CODE_OK);
+			response.setDescription("OK");
+			response.setEntityList(userKeys);
+			return response;
+		} catch (Exception e) {
+			throw new ApiKeyManagementException("Error al buscar las api keys guardadas por el usuario");
+		}
+	}
 	
 	public GenericResponse<Keys> getKeyByKey(String key) throws Exception {
 		String uncryptedKey;

@@ -92,8 +92,22 @@ public class MainController {
         }
 		
 		return response;
+	
 	}
 	
+	
+	@GetMapping("/myapiKeys")
+	public GenericResponse getApiKeysbyMail(@RequestBody GenericRequest request) {
+		operationKeys.setPdClient(pdClient);
+		operationKeys.setEnv(this.env);
+		try {
+			response = operationKeys.getKeyByMail(request.getMail());
+		} catch (Exception e) {
+        	response.setCODE(Methods.exceptionCodeManagement(e));
+        	response.setDescription(e.getClass().getSimpleName() + "[]: " + e.getMessage());
+        }
+		return response;
+	}
     @GetMapping("/players")
     public GenericResponse listPlayers() {
     	operationGetAllPlayers.setPdClient(pdClient);
