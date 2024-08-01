@@ -41,6 +41,9 @@ public class Keys {
 	@Column(nullable=false, name= "ispermanentlyvalid")
 	private boolean isPermanentlyValid;
 
+	@Column(nullable=false, name= "hashkey")
+	private String hashKey;
+	
 	public Long getId() {
 		return id;
 	}
@@ -112,5 +115,15 @@ public class Keys {
 	public void setPermanentlyValid(boolean isPertmanentlyValid) {
 		this.isPermanentlyValid = isPertmanentlyValid;
 	}
+
+	public String getHashKey() {
+		return hashKey;
+	}
+
+	public void setHashKey(String hashKey) {
+		this.hashKey = hashKey;
+	}
+	
+	
 	
 }

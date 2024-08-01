@@ -28,18 +28,17 @@ public class KeysManagement {
 	
 	public GenericResponse<Keys> getKeyByKey(String key) throws Exception {
 		String uncryptedKey;
-		String cryptedKey;
+		String keyHash;
 		Keys storedKey;
 		GenericResponse <Keys> response = new GenericResponse<>();
 		try {
 			crypt.setEnv(this.env);
-			cryptedKey = crypt.encrypt(key);
+			keyHash = crypt.hashKey(key);
 		} catch (Exception e) {
 			throw new ApiKeyManagementException("Error al encriptar la clave de conexion con la api aportada");
 		}
 		try {
-			//pdClient.getKey(hash)
-			storedKey = pdClient.getKey("86H5fJ+smEgQNgUkS9naD0vhTTX+FRrQ7AT8BhPuprnRuwzi2fEqwuVnsotQsEAcgKkryUzn7ehs1MCHCSfgYA==");
+			storedKey = pdClient.getKeyByHash(keyHash);
 			if (storedKey==null)
 				throw new ApiKeyManagementException("Api Key no encontrada");
 			else {
@@ -72,6 +71,7 @@ public class KeysManagement {
 		newKey.setValor(cryptedKey);
 		newKey.setMail(mail);
 		newKey.setIdService(id_service);
+		newKey.setHashKey(crypt.hashKey(apiKey));
 		switch (plan) {
 			case Constants.APISPORTS_FREE:
 				newKey.setTotalUses(Constants.USAGES_APISPORTS_FREE);

@@ -78,9 +78,19 @@ public class PlayerDataClient {
 		}
 	}
 	@Transactional
-	public Keys getKey (String key) throws PlayerDataDBException{
+	public Keys getKeyByKey (String key) throws PlayerDataDBException{
 		try {
 			Keys storedKey = akRepository.findByValor(key);
+			return storedKey;
+		} catch (Exception e) {
+			throw new PlayerDataDBException(e.getMessage());
+		}
+	}
+	
+	@Transactional
+	public Keys getKeyByHash (String key) throws PlayerDataDBException{
+		try {
+			Keys storedKey = akRepository.findByHashKey(key);
 			return storedKey;
 		} catch (Exception e) {
 			throw new PlayerDataDBException(e.getMessage());
