@@ -1,5 +1,8 @@
 package com.playerdatatracking.operations.apikeys;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.core.env.Environment;
@@ -8,6 +11,7 @@ import com.playerdatatracking.clients.PlayerDataClient;
 import com.playerdatatracking.common.Constants;
 import com.playerdatatracking.entities.keys.Keys;
 import com.playerdatatracking.exceptions.ApiKeyManagementException;
+import com.playerdatatracking.exceptions.PlayerDataDBException;
 import com.playerdatatracking.operations.Crypto.AESCrypto;
 import com.playerdatatracking.responses.GenericResponse;
 
@@ -16,8 +20,9 @@ public class KeysManagement {
 	
 	private AESCrypto crypt = new AESCrypto();
 	private PlayerDataClient pdClient;
-	
 	private Environment env;
+	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	
 	
 	public void setEnv(Environment extenv) {
 		this.env = extenv;
@@ -27,6 +32,91 @@ public class KeysManagement {
 		this.pdClient = pdClient;
 	}
 	
+	
+	public Keys keyManagement(Keys actualKey) throws PlayerDataDBException {
+		try {
+			actualKey = checkReadiness(actualKey);
+			Date actualDate = new Date();
+			actualKey.setLastUsed(actualDate.toString());
+			actualKey.setTodayUses(actualKey.getTodayUses()+1);
+			if (actualKey.getTodayUses()>= actualKey.getTotalUses()) {
+				actualKey.setValid(false);
+				return actualKey;
+			}
+			else
+				actualKey.setValid(true);
+			return nextKey();
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	public boolean deleteKey(Keys key) throws PlayerDataDBException {
+		try {
+			return pdClient.deleteKey(key);
+		} catch (Exception e) {
+			throw e;
+		}
+		
+	}
+	
+	public Keys setNewPlan(String key, String newPlan) throws Exception {
+		try {
+			Keys storedKey = getKeyByKey(key).getEntity();
+			pdClient.deleteKey(storedKey);
+			switch (newPlan) {
+				case Constants.APISPORTS_FREE:
+					storedKey.setTotalUses(Constants.USAGES_APISPORTS_FREE);
+					break;
+				case Constants.APISPORTS_MEGA:
+					storedKey.setTotalUses(Constants.USAGES_APISPORTS_MEGA);
+					break;
+				case Constants.APISPORTS_PRO:
+					storedKey.setTotalUses(Constants.USAGES_APISPORTS_PRO);
+					break;
+				case Constants.APISPORTS_ULTRA:
+					storedKey.setTotalUses(Constants.USAGES_APISPORTS_ULTRA);
+					break;
+				default:
+					break;	
+		}
+			storedKey.setValid(true);
+			pdClient.saveApiKey(storedKey);
+			return storedKey;
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	public Keys SuscribeKeys(String key)throws Exception {
+		try{
+			Keys storedKey = getKeyByKey(key).getEntity();
+			pdClient.deleteKey(storedKey);
+			storedKey.setPermanentlyValid(true);
+			pdClient.saveApiKey(storedKey);
+			return storedKey;
+		}catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	public Keys UnsuscribeKeys(String key)throws Exception {
+		try{
+			Keys storedKey = getKeyByKey(key).getEntity();
+			pdClient.deleteKey(storedKey);
+			storedKey.setPermanentlyValid(false);
+			pdClient.saveApiKey(storedKey);
+			return storedKey;
+		}catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	public Keys nextKey() throws PlayerDataDBException {
+		try {
+			return pdClient.getValidKey();
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 	
 	public GenericResponse<Keys> getKeyByMail(String mail) throws Exception{
 		GenericResponse <Keys> response = new GenericResponse<>();
@@ -121,6 +211,34 @@ public class KeysManagement {
 		return response;	
 			
 	}
+	
+	public List<Keys> getAllKeys() throws PlayerDataDBException{
+		try {
+			List<Keys> keys = pdClient.getAllKeys();
+			if (keys==null)
+				return new ArrayList<Keys>();
+			return keys;
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	public Keys checkReadiness(Keys key) throws PlayerDataDBException {
+		try {
+			Date actualDate = new Date();
+			boolean changed = false;
+			pdClient.deleteKey(key);
+			if (key.getLastUsed()==null || !key.getLastUsed().equals(actualDate.toString())) {
+				key.setTodayUses(0);
+				changed = true;
+			}
+			pdClient.saveApiKey(key);
+			return key;
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
 		
 }
 	

@@ -98,12 +98,50 @@ public class PlayerDataClient {
 	}
 	
 	@Transactional
+	public Keys getValidKey() throws PlayerDataDBException{
+		try {
+			List<Keys> storedKeys = akRepository.findByValid(true);
+			if (storedKeys != null)
+				if (storedKeys.size()>0)
+					return storedKeys.get(0);
+			return null;
+		} catch (Exception e) {
+			throw new PlayerDataDBException(e.getMessage());
+		}
+	}
+	
+	
+	
+	@Transactional
+	public boolean deleteKey (Keys key) throws PlayerDataDBException{
+		if (key==null)
+			throw new PlayerDataDBException("no se puede borrar una apikey que sea nula");
+		try {
+			akRepository.delete(key);
+			return true;
+		} catch (Exception e) {
+			throw new PlayerDataDBException(e.getMessage());
+		}
+		
+	}
+	
+	
+	@Transactional
 	public List<Keys> getKeysByMail (String mail)throws PlayerDataDBException{
 		try {
 			List<Keys> storedKeys = akRepository.findByMail(mail);
 			if(storedKeys!=null)
 				return storedKeys;
 			return new ArrayList<Keys>();
+		} catch (Exception e) {
+			throw new PlayerDataDBException(e.getMessage());
+		}
+	}
+	
+	@Transactional
+	public List<Keys> getAllKeys() throws PlayerDataDBException{
+		try {
+			return akRepository.findAll();
 		} catch (Exception e) {
 			throw new PlayerDataDBException(e.getMessage());
 		}
