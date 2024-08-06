@@ -100,7 +100,7 @@ public class PlayerDataClient {
 	@Transactional
 	public Keys getValidKey() throws PlayerDataDBException{
 		try {
-			List<Keys> storedKeys = akRepository.findByValid(true);
+			List<Keys> storedKeys = akRepository.findByIsValid(true);
 			if (storedKeys != null)
 				if (storedKeys.size()>0)
 					return storedKeys.get(0);

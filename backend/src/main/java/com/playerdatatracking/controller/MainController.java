@@ -136,6 +136,8 @@ public class MainController {
     
     @GetMapping("/leagues")
     public GenericResponse getAllLeagues() {
+    	operationGetAllLeagues.setEnv(env);
+    	operationGetAllLeagues.setPdClient(pdClient);
     	try {
     		response = operationGetAllLeagues.ejecutar();
     	} catch (Exception e) {

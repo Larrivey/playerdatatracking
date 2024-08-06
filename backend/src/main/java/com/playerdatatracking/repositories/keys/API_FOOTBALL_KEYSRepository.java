@@ -14,5 +14,5 @@ public interface API_FOOTBALL_KEYSRepository extends JpaRepository<Keys, Long>{
 	Keys findByValor(String valor);
 	Keys findByHashKey(String hashKey);
 	List<Keys> findByMail(String mail);
-	List<Keys> findByValid(boolean isValid);
+	List<Keys> findByIsValid(boolean isValid);
 }

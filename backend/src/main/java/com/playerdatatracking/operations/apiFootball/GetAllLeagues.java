@@ -50,7 +50,7 @@ public class GetAllLeagues {
 				keyMethods.useKey(apiKey);
 			}
 			else {
-				
+				throw new ApiKeyManagementException("error al intentar usar una key no disponible");
 			}
 	        File file = new File(filePath);
 
