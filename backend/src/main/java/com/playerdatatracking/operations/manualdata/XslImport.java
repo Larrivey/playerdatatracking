@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 import com.playerdatatracking.clients.PlayerDataClient;
 import com.playerdatatracking.common.Constants;
 import com.playerdatatracking.common.Methods;
-import com.playerdatatracking.entities.MANUAL_TRACKED_PLAYER;
+import com.playerdatatracking.entities.players.MANUAL_TRACKED_PLAYER;
 import com.playerdatatracking.exceptions.PlayerDataDBException;
 import com.playerdatatracking.responses.GenericResponse;
 
@@ -43,11 +43,6 @@ private GenericResponse response = new GenericResponse();
         this.resourceLoader = resourceLoader;
     }
 	
-	
-	
-	public PlayerDataClient getPdClient() {
-		return pdClient;
-	}
 
 	public void setPdClient(PlayerDataClient pdClient) {
 		this.pdClient = pdClient;

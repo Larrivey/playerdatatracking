@@ -8,11 +8,13 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import com.playerdatatracking.entities.MANUAL_TRACKED_PLAYER;
-import com.playerdatatracking.entities.PLAYER_QUALITIES;
+import com.playerdatatracking.entities.keys.Keys;
+import com.playerdatatracking.entities.players.MANUAL_TRACKED_PLAYER;
+import com.playerdatatracking.entities.players.PLAYER_QUALITIES;
 import com.playerdatatracking.exceptions.PlayerDataDBException;
-import com.playerdatatracking.repositories.MANUAL_TRACKED_PLAYERRepository;
-import com.playerdatatracking.repositories.PLAYER_QUALITIESRepository;
+import com.playerdatatracking.repositories.keys.API_FOOTBALL_KEYSRepository;
+import com.playerdatatracking.repositories.players.MANUAL_TRACKED_PLAYERRepository;
+import com.playerdatatracking.repositories.players.PLAYER_QUALITIESRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -25,6 +27,8 @@ public class PlayerDataClient {
 	private MANUAL_TRACKED_PLAYERRepository mpRepository;
 	@Autowired
 	private PLAYER_QUALITIESRepository pqRepository;
+	@Autowired
+	private API_FOOTBALL_KEYSRepository akRepository;
 	
 	@Transactional
 	public boolean savePlayer(MANUAL_TRACKED_PLAYER player) throws PlayerDataDBException {
@@ -64,5 +68,83 @@ public class PlayerDataClient {
 		}
 	}
 	
+	@Transactional
+	public boolean saveApiKey(Keys newKey) throws PlayerDataDBException{
+		try{
+			akRepository.save(newKey);
+			return true;
+		} catch (Exception e) {
+			throw new PlayerDataDBException(e.getMessage());
+		}
+	}
+	@Transactional
+	public Keys getKeyByKey (String key) throws PlayerDataDBException{
+		try {
+			Keys storedKey = akRepository.findByValor(key);
+			return storedKey;
+		} catch (Exception e) {
+			throw new PlayerDataDBException(e.getMessage());
+		}
+	}
+	
+	@Transactional
+	public Keys getKeyByHash (String key) throws PlayerDataDBException{
+		try {
+			Keys storedKey = akRepository.findByHashKey(key);
+			return storedKey;
+		} catch (Exception e) {
+			throw new PlayerDataDBException(e.getMessage());
+		}
+	}
+	
+	@Transactional
+	public Keys getValidKey() throws PlayerDataDBException{
+		try {
+			List<Keys> storedKeys = akRepository.findByIsValid(true);
+			if (storedKeys != null)
+				if (storedKeys.size()>0)
+					return storedKeys.get(0);
+			return null;
+		} catch (Exception e) {
+			throw new PlayerDataDBException(e.getMessage());
+		}
+	}
+	
+	
+	
+	@Transactional
+	public boolean deleteKey (Keys key) throws PlayerDataDBException{
+		if (key==null)
+			throw new PlayerDataDBException("no se puede borrar una apikey que sea nula");
+		try {
+			akRepository.delete(key);
+			return true;
+		} catch (Exception e) {
+			throw new PlayerDataDBException(e.getMessage());
+		}
+		
+	}
+	
+	
+	@Transactional
+	public List<Keys> getKeysByMail (String mail)throws PlayerDataDBException{
+		try {
+			List<Keys> storedKeys = akRepository.findByMail(mail);
+			if(storedKeys!=null)
+				return storedKeys;
+			return new ArrayList<Keys>();
+		} catch (Exception e) {
+			throw new PlayerDataDBException(e.getMessage());
+		}
+	}
+	
+	@Transactional
+	public List<Keys> getAllKeys() throws PlayerDataDBException{
+		try {
+			return akRepository.findAll();
+		} catch (Exception e) {
+			throw new PlayerDataDBException(e.getMessage());
+		}
+	}
 	
 }

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.playerdatatracking.entities.MANUAL_TRACKED_PLAYER;
+import com.playerdatatracking.entities.players.MANUAL_TRACKED_PLAYER;
 import com.playerdatatracking.exceptions.MalformedRequestException;
 import com.playerdatatracking.requests.GenericRequest;
 
@@ -43,6 +43,14 @@ public class Methods {
 				return Constants.CODE_ERR_XSL_READING_EXCEPTION;
 			case "ParseException":
 				return Constants.CODE_ERR_PARSE_EXCEPTION;
+			case "NotFilledJsonFileResponse":
+				return Constants.CODE_ERR_NOT_FILLED_JSON_RESPONSE;
+			case "NotCreatedJsonFileResponse":
+				return Constants.CODE_ERR_NOT_CREATED_JSON_RESPONSE;
+			case "SecretKeyBadGeneratedException":
+				return Constants.CODE_ERR_GENERATED_KEY;
+			case "ApiKeyManagementException":
+				return Constants.CODE_ERR_KEY_MNGMT;
 			default:
 				return -1;
 				

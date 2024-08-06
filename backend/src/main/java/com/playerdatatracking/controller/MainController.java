@@ -5,18 +5,19 @@ import java.text.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.ui.Model;
 
 import com.playerdatatracking.clients.PlayerDataClient;
-import com.playerdatatracking.common.Constants;
 import com.playerdatatracking.common.Methods;
-import com.playerdatatracking.entities.MANUAL_TRACKED_PLAYER;
+import com.playerdatatracking.entities.players.MANUAL_TRACKED_PLAYER;
 import com.playerdatatracking.exceptions.PlayerDataDBException;
 import com.playerdatatracking.exceptions.PlayerInputException;
+import com.playerdatatracking.operations.Crypto.AESCrypto;
+import com.playerdatatracking.operations.apiFootball.GetAllLeagues;
+import com.playerdatatracking.operations.apikeys.KeysManagement;
 import com.playerdatatracking.operations.manualdata.AddPlayer;
 import com.playerdatatracking.operations.manualdata.GetAllPlayers;
 import com.playerdatatracking.operations.manualdata.XslImport;
-import com.playerdatatracking.repositories.MANUAL_TRACKED_PLAYERRepository;
+import com.playerdatatracking.repositories.players.MANUAL_TRACKED_PLAYERRepository;
 import com.playerdatatracking.requests.GenericRequest;
 import com.playerdatatracking.responses.GenericResponse;
 
@@ -47,13 +48,66 @@ public class MainController {
 	private AddPlayer operationAddPlayer = new AddPlayer();
 	private GetAllPlayers operationGetAllPlayers = new GetAllPlayers();
 	private XslImport operationXslImport = new XslImport();
+	private GetAllLeagues operationGetAllLeagues = new GetAllLeagues();
+	private AESCrypto operationCrypto = new AESCrypto();
+	private KeysManagement operationKeys = new KeysManagement();
 	
 	
 // 	---------RESPONSES---------	
 	GenericResponse response = new GenericResponse();
 	
 	
+	@GetMapping("/secretkey")
+	public GenericResponse getSecretKey() throws Exception {
+		try {
+			response = operationCrypto.getNewSecretKey();
+		} catch (Exception e) {
+        	response.setCODE(Methods.exceptionCodeManagement(e));
+        	response.setDescription(e.getClass().getSimpleName() + "[]: " + e.getMessage());
+		}
+		return response;
+	}
+	@PostMapping("/apiKey")
+	public GenericResponse storeApiKey(@RequestBody GenericRequest request){
+		operationKeys.setPdClient(pdClient);
+		operationKeys.setEnv(this.env);
+		try {
+			response = operationKeys.storeKey(request.getNewKey(), request.getMail(), request.getPlan(), request.getIdService());
+		} catch (Exception e) {
+        	response.setCODE(Methods.exceptionCodeManagement(e));
+        	response.setDescription(e.getClass().getSimpleName() + "[]: " + e.getMessage());
+        }
+		
+		return response;
+	}
+	@GetMapping("/apiKey")
+	public GenericResponse getApiKey(@RequestBody GenericRequest request) {
+		operationKeys.setPdClient(pdClient);
+		operationKeys.setEnv(this.env);
+		try {
+			response = operationKeys.getKeyByKey(request.getApiKey());
+		} catch (Exception e) {
+        	response.setCODE(Methods.exceptionCodeManagement(e));
+        	response.setDescription(e.getClass().getSimpleName() + "[]: " + e.getMessage());
+        }
+		
+		return response;
 	
+	}
+	
+	
+	@GetMapping("/myapiKeys")
+	public GenericResponse getApiKeysbyMail(@RequestBody GenericRequest request) {
+		operationKeys.setPdClient(pdClient);
+		operationKeys.setEnv(this.env);
+		try {
+			response = operationKeys.getKeyByMail(request.getMail());
+		} catch (Exception e) {
+        	response.setCODE(Methods.exceptionCodeManagement(e));
+        	response.setDescription(e.getClass().getSimpleName() + "[]: " + e.getMessage());
+        }
+		return response;
+	}
     @GetMapping("/players")
     public GenericResponse listPlayers() {
     	operationGetAllPlayers.setPdClient(pdClient);
@@ -65,6 +119,7 @@ public class MainController {
         }
         return response;
     }
+    
     @PostMapping("/xslBackendImport")
     public GenericResponse xslImport() {
     	String path = env.getProperty("xsl.path");
@@ -78,7 +133,20 @@ public class MainController {
     	}
     	return response;
     }
-
+    
+    @GetMapping("/leagues")
+    public GenericResponse getAllLeagues() {
+    	operationGetAllLeagues.setEnv(env);
+    	operationGetAllLeagues.setPdClient(pdClient);
+    	try {
+    		response = operationGetAllLeagues.ejecutar();
+    	} catch (Exception e) {
+    		response.setCODE(Methods.exceptionCodeManagement(e));
+    		response.setDescription(e.getClass().getSimpleName() + "[]: " + e.getMessage());
+    	}
+    	return response;
+    }
+    
     @PostMapping("/player")
     public GenericResponse addPlayer(@RequestBody GenericRequest request) throws PlayerDataDBException, PlayerInputException, ParseException {
     	operationAddPlayer.setPdClient(pdClient);
