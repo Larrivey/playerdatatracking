@@ -33,19 +33,17 @@ public class KeysManagement {
 	}
 	
 	
-	public Keys keyManagement(Keys actualKey) throws PlayerDataDBException {
+	public void useKey(Keys actualKey) throws PlayerDataDBException {
 		try {
-			actualKey = checkReadiness(actualKey);
+			pdClient.deleteKey(actualKey);
 			Date actualDate = new Date();
 			actualKey.setLastUsed(actualDate.toString());
 			actualKey.setTodayUses(actualKey.getTodayUses()+1);
-			if (actualKey.getTodayUses()>= actualKey.getTotalUses()) {
+			if (actualKey.getTodayUses()>= actualKey.getTotalUses())
 				actualKey.setValid(false);
-				return actualKey;
-			}
 			else
 				actualKey.setValid(true);
-			return nextKey();
+			pdClient.saveApiKey(actualKey);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -223,20 +221,18 @@ public class KeysManagement {
 		}
 	}
 	
-	public Keys checkReadiness(Keys key) throws PlayerDataDBException {
-		try {
-			Date actualDate = new Date();
-			boolean changed = false;
-			pdClient.deleteKey(key);
-			if (key.getLastUsed()==null || !key.getLastUsed().equals(actualDate.toString())) {
-				key.setTodayUses(0);
-				changed = true;
-			}
-			pdClient.saveApiKey(key);
-			return key;
-		} catch (Exception e) {
-			throw e;
-		}
+	public boolean checkReadiness(Keys key) {
+		if (!key.isPermanentlyValid() && !key.isValid())
+			return false;
+		if (key.getTotalUses() >= key.getTodayUses())
+			return false;
+		return true;
+	}
+	
+	public Keys uncryptKey(Keys key) throws Exception {
+		String keyValue = crypt.decrypt(key.getValor());
+		key.setValor(keyValue);
+		return key;
 	}
 	
 		

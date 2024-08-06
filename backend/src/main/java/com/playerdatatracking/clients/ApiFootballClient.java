@@ -4,6 +4,8 @@ import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.DefaultAsyncHttpClient;
 import org.asynchttpclient.Response;
 
+import com.playerdatatracking.entities.keys.Keys;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,12 +13,12 @@ import java.util.concurrent.CompletableFuture;
 
 
 public class ApiFootballClient {
-	 public void getThings() throws IOException {
+	 public void getLeaguesInfo(String apikey) throws IOException {
 	        AsyncHttpClient client = new DefaultAsyncHttpClient();
 	        
 	        // Realiza la solicitud HTTP GET
 	        CompletableFuture<Response> futureResponse = client.prepare("GET", "https://v3.football.api-sports.io/leagues")
-	    		.setHeader("x-rapidapi-key", "7980b33b1cf376626065507793ba5d71")
+	    		.setHeader("x-rapidapi-key", apikey)
 	    		.setHeader("x-rapidapi-host", "v3.football.api-sports.io")
 	            .execute()
 	            .toCompletableFuture();

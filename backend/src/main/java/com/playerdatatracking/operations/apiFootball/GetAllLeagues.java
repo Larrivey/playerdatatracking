@@ -4,11 +4,17 @@ package com.playerdatatracking.operations.apiFootball;
 import java.io.File;
 import java.io.FileReader;
 
+import org.springframework.core.env.Environment;
+
 import com.playerdatatracking.clients.ApiFootballClient;
+import com.playerdatatracking.clients.PlayerDataClient;
 import com.playerdatatracking.common.Constants;
+import com.playerdatatracking.entities.keys.Keys;
 import com.playerdatatracking.entities.players.MANUAL_TRACKED_PLAYER;
+import com.playerdatatracking.exceptions.ApiKeyManagementException;
 import com.playerdatatracking.exceptions.NotCreatedJsonFileResponse;
 import com.playerdatatracking.exceptions.NotFilledJsonFileResponse;
+import com.playerdatatracking.operations.apikeys.KeysManagement;
 import com.playerdatatracking.responses.GenericResponse;
 
 public class GetAllLeagues {
@@ -17,13 +23,35 @@ public class GetAllLeagues {
 	private ApiFootballClient restClient;
 	private GenericResponse response;
 	String filePath = "src/main/resources/json/apiFotball/leagues/response.json";
-	
+	private PlayerDataClient pdClient;
+	private KeysManagement keyMethods = new KeysManagement();
+	private Environment env;
+
+	public void setPdClient(PlayerDataClient pdClient) {
+		this.pdClient = pdClient;
+	}
+
+	public void setEnv(Environment env) {
+		this.env = env;
+	}
 	
 	public GenericResponse ejecutar () throws Exception {
 		try {
 			response = new GenericResponse();
 			restClient = new ApiFootballClient();
-			restClient.getThings();
+			keyMethods.setEnv(env);
+			keyMethods.setPdClient(pdClient);
+			Keys apiKey = keyMethods.nextKey();
+			if (apiKey==null)
+				throw new ApiKeyManagementException("no hay almacenada ninguna key valida");
+			if (keyMethods.checkReadiness(apiKey)) {
+				Keys unctyptedKey = keyMethods.uncryptKey(apiKey);
+				restClient.getLeaguesInfo(unctyptedKey.getValor());
+				keyMethods.useKey(apiKey);
+			}
+			else {
+				
+			}
 	        File file = new File(filePath);
 
 	        if (!file.exists())
