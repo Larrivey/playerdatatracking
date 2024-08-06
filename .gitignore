@@ -3,6 +3,7 @@ HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
+!**/src/main/resources/json/apiFotball/
 !**/src/test/**/target/
 
 ### STS ###
