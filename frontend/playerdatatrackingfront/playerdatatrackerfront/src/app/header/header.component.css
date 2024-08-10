@@ -1,5 +1,11 @@
-:host {
+.header {
   display: block;
   background-color: #CD853F;
   height: 60px;
+}
+.home-icon{
+  cursor: pointer;
+  margin: 1%;
+  height: 20px;
+  width: 20px;
 }

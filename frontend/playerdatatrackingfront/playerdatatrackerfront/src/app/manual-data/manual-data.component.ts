@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -8,40 +9,40 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./manual-data.component.css']
 })
 export class ManualDataComponent {
-  isTableVisible: boolean = false;
-  data: {nombre: string, club:string}[] = [];
 
-  constructor(private router: Router, private httpClient: HttpClient) {
+  constructor(private router: Router, private http: HttpClient) {
 
   }
 
-  toggleTableVisibility() {
-    this.isTableVisible = !this.isTableVisible;
+  players: any[] = [];
+  isDataVisible: boolean = false; // Controla la visibilidad de los datos
+
+  fetchPlayers(){
+    // Hacer la llamada HTTP a la API
+    this.http.get('http://localhost:8080/players')
+    .subscribe((response: any) => {
+    if (response.code === 0) {
+      // Si la respuesta es exitosa, almacenar los jugadores en la variable
+      this.players = response.entityList;
+      console.log(this.players);
+      this.isDataVisible = true; // Muestra los datos
+    } else {
+      console.error('Error al obtener jugadores:', response.description);
+    }
+    }, error => {
+      console.error('Error en la solicitud:', error);
+    });
   }
 
-  fetchData(value1: string, value2: string) {
-    this.data.push({ nombre: value1, club:value2});
+  togglePlayers() {
+    if (this.isDataVisible) {
+      // Ocultar los datos
+      this.players = [];
+      this.isDataVisible = false;
+    } else {
+      // Cargar los datos
+      this.fetchPlayers();
+    }
   }
 
-  navigateToHome() {
-    this.router.navigate(['/']);
-  }
-
-  searchManualTrackedPlayers(){
-    let url = "http://localhost:8080/players";
-    this.httpClient.get(url).subscribe(
-      response => {
-        let data: any = response;
-        console.log(data);
-        for(var i=0; i<data.items.length;i++){
-
-        this.fetchData("player"+ i.toString,"club"+i.toString);
-        }
-
-      },
-      error => console.error(error)
-
-    );
-
-  }
 }

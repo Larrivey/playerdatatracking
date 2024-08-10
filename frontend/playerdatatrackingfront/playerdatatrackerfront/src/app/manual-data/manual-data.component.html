@@ -1,14 +1,15 @@
 <div class="manual-data-container">
-  <button (click)="toggleTableVisibility()">Toggle Table</button>
-  <button (click)="navigateToHome()">Go to Home</button>
-  <button (click)="searchManualTrackedPlayers()"Show all players></button>
 
-</div>
-<div class="manual-data-container">
-  <table *ngIf="isTableVisible" class="data-table">
-    <tr *ngFor="let item of data; let i = index">
-      <td>{{ item.nombre }}</td>
-      <td>{{ item.club }}</td>
-    </tr>
-  </table>
+  <button (click)="togglePlayers()">
+    {{ isDataVisible ? 'Ocultar información' : 'Cargar jugadores' }}
+  </button>
+  <div *ngIf="isDataVisible">
+    <h3>Lista de Jugadores:</h3>
+    <!--<ul>
+      <li *ngFor="let player of players">
+        {{ player.nombre }} - {{ player.club }} - {{ player.posicion }}
+      </li>
+    </ul>-->
+    <app-player-list [entityList]="players"></app-player-list>
+  </div>
 </div>

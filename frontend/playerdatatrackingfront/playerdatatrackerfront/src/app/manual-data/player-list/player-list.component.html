@@ -1,0 +1,28 @@
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Posición</th>
+      <th>Edad</th>
+      <th>Club</th>
+      <th>Nota</th>
+      <th>Destino Más Probable</th>
+      <th>Fecha de estudio</th>
+      <th>Fecha de Nacimiento</th>
+      <th>Calidades</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let player of entityList">
+      <td>{{ player.nombre }}</td>
+      <td>{{ player.posicion }}</td>
+      <td>{{ player.age }}</td>
+      <td>{{ player.club }}</td>
+      <td>{{ player.nota }}</td>
+      <td>{{ player.mostLikeDestination }}</td>
+      <td>{{ player.date }}</td>
+      <td>{{ player.birth }}</td>
+      <td>{{ player.qualities }}</td>
+    </tr>
+  </tbody>
+</table>

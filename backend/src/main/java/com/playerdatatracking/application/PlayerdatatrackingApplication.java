@@ -15,5 +15,4 @@ public class PlayerdatatrackingApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PlayerdatatrackingApplication.class, args);
 	}
-
 }

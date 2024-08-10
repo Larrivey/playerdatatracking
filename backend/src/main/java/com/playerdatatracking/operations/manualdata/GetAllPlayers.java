@@ -14,7 +14,7 @@ public class GetAllPlayers {
 	
 	private PlayerDataClient pdClient;
 	
-	private GenericResponse response = new GenericResponse();
+	private GenericResponse<MANUAL_TRACKED_PLAYER> response = new GenericResponse();
 	
 	
 	
@@ -28,28 +28,14 @@ public class GetAllPlayers {
 	}
 	
 	
-	public GenericResponse ejecutar() throws PlayerDataDBException {
+	public GenericResponse<MANUAL_TRACKED_PLAYER> ejecutar() throws PlayerDataDBException {
 		List<MANUAL_TRACKED_PLAYER> playersList = pdClient.getAllPlayers();
+		response.setEntityList(playersList);
 		response.setCODE(Constants.CODE_OK);
-		String description = "[";
-		for (MANUAL_TRACKED_PLAYER p : playersList) {
-			List<String> qualities = pdClient.getAllQualities(p.getId());
-			if (qualities==null)
-				qualities = new ArrayList<>();
-			description = description + p.getNombre() + ": ";
-			description = description + "Club Actual - " + p.getClub() + " ";
-			description = description + "Poscion - " + p.getPosicion() + " ";
-			description = description + "Nota - " + p.getNota() + " ";
-			description = description + "Cualidades - " + qualities.toString() + " ";
-			description = description + "Futuro Club - " + p.getMostLikeDestination() + " ";
-			description = description + "Jugador Parecido - " + p.getLikeable() + " ";
-			description = description + "Fecha de Scouting - " + p.getDate().toString() + ". \r\n ";
-		}
-		description = description + "]";
-		response.setDescription(description);
-		
-		
-		
+		if (playersList==null)
+			response.setDescription("No Player Found");
+		else
+			response.setDescription("OK");
 		return response;
 	}
 }
