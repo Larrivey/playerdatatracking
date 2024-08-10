@@ -1,0 +1,26 @@
+.manual-data-quality{
+
+  background-color: #ddd;
+  color: #333;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  border-bottom: 2px solid #ccc;
+
+}
+
+.manual-data-quality:not(:last-child) {
+  border-right: 1px solid #ccc;
+}
+
+.manual-data-row-value{
+  text-align: center;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.manual-data-row-value:not(:last-child) {
+
+}
+.manual-data-table{
+}
