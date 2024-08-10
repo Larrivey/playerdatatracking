@@ -5,3 +5,6 @@ hr {
   background-color: #A9A9A9; /* Color gris */
   margin: 20px 0; /* Opcional: Espaciado arriba y abajo */
 }
+body {
+  margin: 0;
+}
