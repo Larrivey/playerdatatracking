@@ -1,8 +1,9 @@
 <div class="manual-data-container">
+  <div class="manual-data-buttons-container">
+    <button class="toggle-button" (click)="togglePlayers()"> {{ isDataVisible ? 'Ocultar información' : 'Cargar jugadores' }}</button>
+    <button class="toggle-button"> Añadir jugador </button>
 
-  <button class="toggle-button" (click)="togglePlayers()">
-    {{ isDataVisible ? 'Ocultar información' : 'Cargar jugadores' }}
-  </button>
+  </div>
   <hr *ngIf="isDataVisible"/>
   <div class="manual-data-table-container" *ngIf="isDataVisible">
     <app-player-list [entityList]="players"></app-player-list>

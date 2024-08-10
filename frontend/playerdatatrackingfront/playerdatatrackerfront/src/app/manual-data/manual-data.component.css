@@ -1,5 +1,4 @@
 .manual-data-container {
-    border: 2px solid black;
     border-radius: 10px;
     padding: 10px;
     flex-direction:column;
@@ -47,4 +46,9 @@
   background-color: #7f7f7f; /* Color de fondo al hacer clic */
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra más cercana */
   transform: translateY(2px); /* Simulación de movimiento hacia abajo */
+}
+.manual-data-buttons-container{
+  display: flex;
+  justify-content: space-evenly;
+
 }

@@ -1,1 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+hr {
+  border: none; /* Elimina el borde por defecto */
+  height: 1px; /* Establece el grosor de la línea */
+  background-color: #A9A9A9; /* Color gris */
+  margin: 20px 0; /* Opcional: Espaciado arriba y abajo */
+}
