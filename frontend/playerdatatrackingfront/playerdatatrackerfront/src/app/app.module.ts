@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { AddPlayerComponent } from './add-player/add-player.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,15 @@ import { AddPlayerComponent } from './add-player/add-player.component';
     AddPlayerComponent
   ],
   imports: [
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+      timeOut: 3000,
+      extendedTimeOut: 1000,
+      progressBar: true,
+      closeButton: true
+    }),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

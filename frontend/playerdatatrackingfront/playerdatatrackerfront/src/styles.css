@@ -9,3 +9,46 @@ body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
 }
+.toast-top-right {
+  position: fixed;
+  top: 70px; /* Ajusta esto según la altura de tu header */
+  right: 12px;
+  z-index: 9999; /* Asegúrate de que las notificaciones estén en frente de otros elementos */
+}
+
+.toast-success {
+  background-color: #28a745 !important; /* Verde para éxito */
+  padding: 16px !important; /* Padding dentro de la notificación */
+  font-family: 'Roboto', sans-serif !important; /* Fuente Roboto */
+  color: white !important; /* Texto blanco */
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.toast-error {
+  background-color: #dc3545 !important; /* Rojo para error */
+  padding: 16px !important; /* Padding dentro de la notificación */
+  font-family: 'Roboto', sans-serif !important; /* Fuente Roboto */
+  color: white !important; /* Texto blanco */
+  max-width: 60%;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+.toast{
+  z-index: 9999;
+  padding: 16px !important; /* Padding dentro de la notificación */
+  font-family: 'Roboto', sans-serif !important; /* Fuente Roboto */
+  color: white !important; /* Texto blanco */
+}
+.toast-close-button {
+  background: transparent !important; /* Elimina el fondo de la cruz */
+  border: none !important; /* Elimina cualquier borde */
+  color: white !important; /* Asegura que la cruz sea visible */
+  opacity: 1 !important; /* Totalmente visible */
+  font-size: 1.2em; /* Ajusta el tamaño si es necesario */
+}
+.toast-close-button:hover {
+  cursor: pointer;
+}

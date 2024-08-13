@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr'; // Importar ToastrService
 import { ManualTrackedPlayer } from '../entitites/manual-tracker-player';
 
 @Component({
@@ -12,7 +13,11 @@ export class AddPlayerComponent {
   newPlayer: Partial<ManualTrackedPlayer> = {};
   qualitiesInput: string = '';
 
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private toastr: ToastrService
+  ) {}
 
   onSubmit() {
     // Parsear las cualidades
@@ -31,13 +36,31 @@ export class AddPlayerComponent {
     }
 
     // Hacer la petición POST
-    this.http.post('http://localhost:8080/player', this.newPlayer).subscribe(
+    this.http.post<any>('http://localhost:8080/player', this.newPlayer).subscribe(
       (response) => {
-        console.log('Jugador añadido con éxito', response);
-        this.router.navigate(['/']); // Navegar de vuelta a la lista de jugadores
+        console.log(response.description);
+        if (response.code === 0) {
+          this.toastr.success('Jugador añadido correctamente', ' ', {
+            timeOut: 3000,
+            progressBar: true,
+            closeButton: true,
+
+          });
+        } else {
+          this.toastr.error(response.description, '', {
+            timeOut: 3000,
+            progressBar: true,
+            closeButton: true
+          });
+        }
       },
       (error) => {
-        console.error('Error al añadir el jugador', error);
+        console.error('Error al procesar la petición en el sistema');
+        this.toastr.error('Error al procesar la petición en el sistema', 'Error', {
+          timeOut: 3000,
+          progressBar: true,
+          closeButton: true
+        });
       }
     );
   }

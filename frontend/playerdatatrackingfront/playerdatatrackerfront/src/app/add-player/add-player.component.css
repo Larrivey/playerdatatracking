@@ -5,6 +5,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #f9f9f9;
+  margin-top: 2%;
 }
 
 .add-player-container h2 {
@@ -32,7 +33,7 @@
   display: block;
   width: 100%;
   padding: 10px;
-  background-color: #4CAF50;
+  background-color: #CD853F;
   color: white;
   border: none;
   border-radius: 5px;
@@ -40,5 +41,10 @@
 }
 
 .add-player-container button:hover {
-  background-color: #45a049;
+  background-color: #cf7a25;
+}
+.add-player-container button:active {
+  background-color: #ac5e11; /* Color de fondo al hacer clic */
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra más cercana */
+  transform: translateY(2px); /* Simulación de movimiento hacia abajo */
 }
