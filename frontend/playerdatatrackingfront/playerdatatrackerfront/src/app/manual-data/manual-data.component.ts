@@ -45,4 +45,8 @@ export class ManualDataComponent {
     }
   }
 
+  navigateAddPlayer() {
+    this.router.navigate(['/addplayer']);
+  }
+
 }

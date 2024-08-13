@@ -5,20 +5,24 @@ import { HttpClientModule } from '@angular/common/http';
 import { ManualDataModule } from './manual-data/manual-data.module';
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
+import { FormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
+import { AddPlayerComponent } from './add-player/add-player.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    AddPlayerComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ManualDataModule,
+    FormsModule,
     routing
   ],
   providers: [],

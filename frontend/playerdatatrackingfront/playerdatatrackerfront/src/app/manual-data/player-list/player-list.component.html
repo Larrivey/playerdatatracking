@@ -1,16 +1,16 @@
 <table class="manual-data-table">
   <thead>
     <tr>
-      <th class="manual-data-quality">Nombre</th>
-      <th class="manual-data-quality">Posición</th>
-      <th class="manual-data-quality">Edad</th>
-      <th class="manual-data-quality">Club</th>
-      <th class="manual-data-quality">Nota</th>
-      <th class="manual-data-quality">Destino Más Probable</th>
-      <th class="manual-data-quality">Jugador similar</th>
-      <th class="manual-data-quality">Fecha de estudio</th>
-      <th class="manual-data-quality">Fecha de Nacimiento</th>
-      <th class="manual-data-quality">Calidades</th>
+      <th class="manual-data-quality" (click)="sortData('nombre')">Nombre <span class="sort-icon asc" [ngClass]="{'active': isSortedAsc('nombre')}">&#9650;</span><span class="sort-icon desc" [ngClass]="{'active': isSortedDesc('nombre')}">&#9660;</span></th>
+      <th class="manual-data-quality" (click)="sortData('posicion')">Posición <span class="sort-icon asc" [ngClass]="{'active': isSortedAsc('posicion')}">&#9650;</span><span class="sort-icon desc" [ngClass]="{'active': isSortedDesc('posicion')}">&#9660;</span></th>
+      <th class="manual-data-quality" (click)="sortData('age')">Edad <span class="sort-icon asc" [ngClass]="{'active': isSortedAsc('age')}">&#9650;</span><span class="sort-icon desc" [ngClass]="{'active': isSortedDesc('age')}">&#9660;</span></th>
+      <th class="manual-data-quality" (click)="sortData('club')">Club <span class="sort-icon asc" [ngClass]="{'active': isSortedAsc('club')}">&#9650;</span><span class="sort-icon desc" [ngClass]="{'active': isSortedDesc('club')}">&#9660;</span></th>
+      <th class="manual-data-quality" (click)="sortData('nota')">Nota <span class="sort-icon asc" [ngClass]="{'active': isSortedAsc('nota')}">&#9650;</span><span class="sort-icon desc" [ngClass]="{'active': isSortedDesc('nota')}">&#9660;</span></th>
+      <th class="manual-data-quality" (click)="sortData('mostLikeDestination')">Destino Más Probable <span class="sort-icon asc" [ngClass]="{'active': isSortedAsc('mostLikeDestination')}">&#9650;</span><span class="sort-icon desc" [ngClass]="{'active': isSortedDesc('mostLikeDestination')}">&#9660;</span></th>
+      <th class="manual-data-quality" (click)="sortData('likeable')">Jugador similar <span class="sort-icon asc" [ngClass]="{'active': isSortedAsc('likeable')}">&#9650;</span><span class="sort-icon desc" [ngClass]="{'active': isSortedDesc('likeable')}">&#9660;</span></th>
+      <th class="manual-data-quality" (click)="sortData('date')">Fecha de estudio <span class="sort-icon asc" [ngClass]="{'active': isSortedAsc('date')}">&#9650;</span><span class="sort-icon desc" [ngClass]="{'active': isSortedDesc('date')}">&#9660;</span></th>
+      <th class="manual-data-quality" (click)="sortData('birth')">Fecha de Nacimiento <span class="sort-icon asc" [ngClass]="{'active': isSortedAsc('birth')}">&#9650;</span><span class="sort-icon desc" [ngClass]="{'active': isSortedDesc('birth')}">&#9660;</span></th>
+      <th class="manual-data-quality" (click)="sortData('qualities')">Calidades <span class="sort-icon asc" [ngClass]="{'active': isSortedAsc('qualities')}">&#9650;</span><span class="sort-icon desc" [ngClass]="{'active': isSortedDesc('qualities')}">&#9660;</span></th>
     </tr>
   </thead>
   <tbody>

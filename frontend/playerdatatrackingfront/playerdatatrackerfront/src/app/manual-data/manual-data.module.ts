@@ -11,7 +11,7 @@ import { PlayerListComponent } from './player-list/player-list.component';
   ],
   imports: [
     CommonModule, // Importa CommonModule para ngIf y ngFor
-    RouterModule  // Importa RouterModule para la navegación
+    RouterModule , // Importa RouterModule para la navegación
   ],
   exports: [
     ManualDataComponent

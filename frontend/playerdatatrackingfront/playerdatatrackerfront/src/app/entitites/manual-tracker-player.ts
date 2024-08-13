@@ -5,9 +5,9 @@ export interface ManualTrackedPlayer {
   club: string;
   mostLikeDestination:string;
   likeable:string;
-  date: Date;
+  date: string;
   posicion: string;
-  birth: Date;
+  birth: string;
   age: number;
   qualities: string[];
 }

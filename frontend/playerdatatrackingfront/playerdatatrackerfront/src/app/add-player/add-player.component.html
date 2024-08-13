@@ -1,0 +1,38 @@
+<div class="add-player-container">
+  <h2>Añadir Nuevo Jugador</h2>
+  <form (ngSubmit)="onSubmit()" #playerForm="ngForm">
+    <div>
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" required [(ngModel)]="newPlayer.nombre" name="nombre" />
+    </div>
+    <div>
+      <label for="nota">Nota:</label>
+      <input type="number" id="nota" required [(ngModel)]="newPlayer.nota" name="nota" />
+    </div>
+    <div>
+      <label for="club">Club:</label>
+      <input type="text" id="club" required [(ngModel)]="newPlayer.club" name="club" />
+    </div>
+    <div>
+      <label for="posicion">Posición:</label>
+      <input type="text" id="posicion" required [(ngModel)]="newPlayer.posicion" name="posicion" />
+    </div>
+    <div>
+      <label for="likeable">Jugador Similar:</label>
+      <input type="text" id="likeable" required [(ngModel)]="newPlayer.likeable" name="likeable" />
+    </div>
+    <div>
+      <label for="birth">Fecha de Nacimiento:</label>
+      <input type="date" id="birth" required [(ngModel)]="newPlayer.birth" name="birth" />
+    </div>
+    <div>
+      <label for="mostLikeDestination">Destino Más Probable:</label>
+      <input type="text" id="mostLikeDestination" [(ngModel)]="newPlayer.mostLikeDestination" name="mostLikeDestination" />
+    </div>
+    <div>
+      <label for="qualities">Cualidades (separadas por comas):</label>
+      <input type="text" id="qualities" [(ngModel)]="qualitiesInput" name="qualities" />
+    </div>
+    <button type="submit">Añadir Jugador</button>
+  </form>
+</div>
