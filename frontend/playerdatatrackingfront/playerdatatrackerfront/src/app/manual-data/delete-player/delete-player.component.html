@@ -1,0 +1,34 @@
+<table class="manual-data-table">
+  <thead>
+    <tr>
+      <th class="manual-data-quality">Borrar</th>
+      <th class="manual-data-quality">Nombre</th>
+      <th class="manual-data-quality">Posición</th>
+      <th class="manual-data-quality">Edad</th>
+      <th class="manual-data-quality">Club</th>
+      <th class="manual-data-quality">Nota</th>
+      <th class="manual-data-quality">Destino Más Probable</th>
+      <th class="manual-data-quality">Jugador similar</th>
+      <th class="manual-data-quality">Fecha de estudio</th>
+      <th class="manual-data-quality">Fecha de Nacimiento</th>
+      <th class="manual-data-quality">Cualidades</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="manual-data-row" *ngFor="let player of entityList">
+      <td class="manual-data-row-value">
+        <button class="delete-button" (click)="deletePlayer(player)">X</button>
+      </td>
+      <td class="manual-data-row-value"><a (click)="selectPlayer(player)" [routerLink]="['/manualdataplayer', player.id]"> {{ player.nombre }} </a></td>
+      <td class="manual-data-row-value">{{ player.posicion }}</td>
+      <td class="manual-data-row-value">{{ player.age }}</td>
+      <td class="manual-data-row-value">{{ player.club }}</td>
+      <td class="manual-data-row-value">{{ player.nota }}</td>
+      <td class="manual-data-row-value">{{ player.mostLikeDestination }}</td>
+      <td class="manual-data-row-value">{{ player.likeable }}</td>
+      <td class="manual-data-row-value">{{ player.date }}</td>
+      <td class="manual-data-row-value">{{ player.birth }}</td>
+      <td class="manual-data-row-value">{{ player.qualities }}</td>
+    </tr>
+  </tbody>
+</table>

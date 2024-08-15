@@ -15,7 +15,7 @@
   </thead>
   <tbody>
     <tr class="manual-data-row" *ngFor="let player of entityList">
-      <td class="manual-data-row-value">{{ player.nombre }}</td>
+      <td class="manual-data-row-value"><a (click)="selectPlayer(player)"> {{ player.nombre }} </a></td>
       <td class="manual-data-row-value">{{ player.posicion }}</td>
       <td class="manual-data-row-value">{{ player.age }}</td>
       <td class="manual-data-row-value">{{ player.club }}</td>

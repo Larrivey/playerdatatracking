@@ -1,0 +1,16 @@
+.player-detail-container {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.player-detail-container h2 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.player-detail-container p {
+  margin: 5px 0;
+  font-size: 16px;
+}

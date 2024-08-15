@@ -1,3 +1,4 @@
+import { DeletePlayerModule } from './manual-data/delete-player/delete-player.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,13 +12,15 @@ import { HeaderComponent } from './header/header.component';
 import { AddPlayerComponent } from './add-player/add-player.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PlayerDetailComponent } from './player-detail/player-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
     HeaderComponent,
-    AddPlayerComponent
+    AddPlayerComponent,
+    PlayerDetailComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -34,6 +37,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     ManualDataModule,
     FormsModule,
+    DeletePlayerModule,
     routing
   ],
   providers: [],

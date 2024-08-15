@@ -38,7 +38,7 @@
     transition: all 0.3s ease; /* Transición suave para los efectos */
     display:block;
 }
-.toggle-button:hover {
+.toggle-button:hover:enabled {
   background-color: #8f8f8f; /* Color de fondo al pasar el ratón */
   box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.5); /* Sombra más profunda */
 }
@@ -50,4 +50,10 @@
 .manual-data-buttons-container{
   display: flex;
   justify-content: space-evenly;
+}
+
+.toggle-button:disabled {
+  background-color: grey;
+  color: lightgray;
+  cursor: not-allowed;
 }

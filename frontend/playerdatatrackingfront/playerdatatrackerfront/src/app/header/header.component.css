@@ -2,6 +2,8 @@
   display: block;
   background-color: #CD853F;
   height: 60px;
+  display: flex;
+  align-items: center;
 }
 .home-icon{
   cursor: pointer;

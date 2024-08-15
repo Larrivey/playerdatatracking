@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ManualDataComponent } from './manual-data.component';
 import { RouterModule } from '@angular/router';
 import { PlayerListComponent } from './player-list/player-list.component';
+import { DeletePlayerModule } from './delete-player/delete-player.module';
 
 @NgModule({
   declarations: [
@@ -10,8 +11,9 @@ import { PlayerListComponent } from './player-list/player-list.component';
     PlayerListComponent
   ],
   imports: [
-    CommonModule, // Importa CommonModule para ngIf y ngFor
-    RouterModule , // Importa RouterModule para la navegación
+    CommonModule,
+    RouterModule ,
+    DeletePlayerModule
   ],
   exports: [
     ManualDataComponent

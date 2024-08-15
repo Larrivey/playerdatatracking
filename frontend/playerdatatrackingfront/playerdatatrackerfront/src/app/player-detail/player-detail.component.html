@@ -1,0 +1,16 @@
+<div *ngIf="player" class="player-detail-container">
+  <h2>Detalles del Jugador: {{ player.nombre }}</h2>
+  <p><strong>Posición:</strong> {{ player.posicion }}</p>
+  <p><strong>Edad:</strong> {{ player.age }}</p>
+  <p><strong>Club:</strong> {{ player.club }}</p>
+  <p><strong>Nota:</strong> {{ player.nota }}</p>
+  <p><strong>Destino Más Probable:</strong> {{ player.mostLikeDestination }}</p>
+  <p><strong>Jugador Similar:</strong> {{ player.likeable }}</p>
+  <p><strong>Fecha de Estudio:</strong> {{ player.date }}</p>
+  <p><strong>Fecha de Nacimiento:</strong> {{ player.birth }}</p>
+  <p><strong>Cualidades:</strong> {{ player.qualities }}</p>
+</div>
+
+<div *ngIf="!player" class="player-detail-container">
+  <p>No se ha encontrado la información del jugador.</p>
+</div>

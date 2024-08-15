@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ManualTrackedPlayer } from 'src/app/entitites/manual-tracker-player';
 
 
@@ -12,11 +13,12 @@ export class PlayerListComponent implements OnInit {
   sortedColumn: string | null = null;
 
   @Input() entityList: ManualTrackedPlayer[] = [];
+  selectedPlayer: ManualTrackedPlayer | null = null;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
-    // Puedes realizar alguna operación inicial con entityList aquí
+
   }
 
   sortData(property: keyof ManualTrackedPlayer) {
@@ -42,7 +44,7 @@ export class PlayerListComponent implements OnInit {
     if (this.sortedColumn === property) {
       return this.sortOrder[property] === 'asc' ? 'asc sorted-column' : 'desc sorted-column';
     }
-    return ''; // Devuelve una cadena vacía si no es la columna ordenada
+    return '';
   }
 
   isSortedAsc(property: keyof ManualTrackedPlayer): boolean {
@@ -51,5 +53,10 @@ export class PlayerListComponent implements OnInit {
 
   isSortedDesc(property: keyof ManualTrackedPlayer): boolean {
     return this.sortedColumn === property && this.sortOrder[property] === 'desc';
+  }
+
+  selectPlayer(player: ManualTrackedPlayer) {
+    this.selectedPlayer = player;
+    this.router.navigate(['/manualdataplayer/', player.id])
   }
 }
