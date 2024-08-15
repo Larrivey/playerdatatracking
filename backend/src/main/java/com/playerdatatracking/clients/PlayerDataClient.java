@@ -125,6 +125,18 @@ public class PlayerDataClient {
 		
 	}
 	
+	@Transactional
+	public boolean deletePlayer(String name) throws PlayerDataDBException{
+		try {
+			MANUAL_TRACKED_PLAYER player = mpRepository.findByNombre(name);
+			if (player==null)
+				throw new PlayerDataDBException("no player was found with name " + name);
+			mpRepository.delete(player);
+			return true;
+		} catch (Exception e) {
+			throw new PlayerDataDBException(e.getMessage());
+		}
+	}
 	
 	@Transactional
 	public List<Keys> getKeysByMail (String mail)throws PlayerDataDBException{

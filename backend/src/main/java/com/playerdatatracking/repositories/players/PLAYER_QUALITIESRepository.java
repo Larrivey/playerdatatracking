@@ -11,6 +11,6 @@ import com.playerdatatracking.entities.players.PLAYER_QUALITIES;
 public interface PLAYER_QUALITIESRepository extends JpaRepository<PLAYER_QUALITIES, Long> {
 
 	
-	
+	void deleteByPlayerId(Long id);
 	List<PLAYER_QUALITIES> findByPlayerId(Long id);
 }

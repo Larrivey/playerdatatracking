@@ -15,12 +15,14 @@ import com.playerdatatracking.operations.Crypto.AESCrypto;
 import com.playerdatatracking.operations.apiFootball.GetAllLeagues;
 import com.playerdatatracking.operations.apikeys.KeysManagement;
 import com.playerdatatracking.operations.manualdata.AddPlayer;
+import com.playerdatatracking.operations.manualdata.DeletePlayer;
 import com.playerdatatracking.operations.manualdata.GetAllPlayers;
 import com.playerdatatracking.operations.manualdata.XslImport;
 import com.playerdatatracking.repositories.players.MANUAL_TRACKED_PLAYERRepository;
 import com.playerdatatracking.requests.GenericRequest;
 import com.playerdatatracking.responses.GenericResponse;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -51,6 +53,7 @@ public class MainController {
 	private GetAllLeagues operationGetAllLeagues = new GetAllLeagues();
 	private AESCrypto operationCrypto = new AESCrypto();
 	private KeysManagement operationKeys = new KeysManagement();
+	private DeletePlayer operationDeletePlayer = new DeletePlayer();
 	
 	
 // 	---------RESPONSES---------	
@@ -154,6 +157,18 @@ public class MainController {
         	MANUAL_TRACKED_PLAYER player = Methods.bindRequestAsPlayer(request);
         	response = operationAddPlayer.ejecutar(player);
         } catch (Exception e) {
+        	response.setCODE(Methods.exceptionCodeManagement(e));
+        	response.setDescription(e.getClass().getSimpleName() + "[]: " + e.getMessage());
+        }
+        return response;
+    }
+    
+    @DeleteMapping("/player")
+    public GenericResponse deletePlayer(@RequestBody GenericRequest request) {
+    	operationDeletePlayer.setPdClient(pdClient);
+    	try {
+    		response = operationDeletePlayer.ejecutar(request.getNombre());
+    	} catch (Exception e) {
         	response.setCODE(Methods.exceptionCodeManagement(e));
         	response.setDescription(e.getClass().getSimpleName() + "[]: " + e.getMessage());
         }
