@@ -1,4 +1,4 @@
-package com.playerdatatracking.exceptions;
+package com.playerdatatracking.exceptions.apikeys;
 
 public class SecretKeyBadGeneratedException extends Exception {
 

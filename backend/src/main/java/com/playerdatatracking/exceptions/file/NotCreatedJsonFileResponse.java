@@ -1,4 +1,4 @@
-package com.playerdatatracking.exceptions;
+package com.playerdatatracking.exceptions.file;
 
 public class NotCreatedJsonFileResponse extends Exception{
 

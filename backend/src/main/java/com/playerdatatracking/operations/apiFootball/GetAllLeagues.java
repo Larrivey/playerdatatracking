@@ -11,9 +11,9 @@ import com.playerdatatracking.clients.PlayerDataClient;
 import com.playerdatatracking.common.Constants;
 import com.playerdatatracking.entities.keys.Keys;
 import com.playerdatatracking.entities.players.MANUAL_TRACKED_PLAYER;
-import com.playerdatatracking.exceptions.ApiKeyManagementException;
-import com.playerdatatracking.exceptions.NotCreatedJsonFileResponse;
-import com.playerdatatracking.exceptions.NotFilledJsonFileResponse;
+import com.playerdatatracking.exceptions.apikeys.ApiKeyManagementException;
+import com.playerdatatracking.exceptions.file.NotCreatedJsonFileResponse;
+import com.playerdatatracking.exceptions.file.NotFilledJsonFileResponse;
 import com.playerdatatracking.operations.apikeys.KeysManagement;
 import com.playerdatatracking.responses.GenericResponse;
 

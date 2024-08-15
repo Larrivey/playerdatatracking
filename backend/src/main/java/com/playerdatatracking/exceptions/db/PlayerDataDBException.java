@@ -1,4 +1,4 @@
-package com.playerdatatracking.exceptions;
+package com.playerdatatracking.exceptions.db;
 
 public class PlayerDataDBException extends Exception {
     // Constructor que acepta un mensaje

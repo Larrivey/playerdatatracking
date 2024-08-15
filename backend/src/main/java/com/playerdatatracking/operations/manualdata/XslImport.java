@@ -21,7 +21,7 @@ import com.playerdatatracking.clients.PlayerDataClient;
 import com.playerdatatracking.common.Constants;
 import com.playerdatatracking.common.Methods;
 import com.playerdatatracking.entities.players.MANUAL_TRACKED_PLAYER;
-import com.playerdatatracking.exceptions.PlayerDataDBException;
+import com.playerdatatracking.exceptions.db.PlayerDataDBException;
 import com.playerdatatracking.responses.GenericResponse;
 
 

@@ -10,7 +10,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.springframework.core.env.Environment;
 
 import com.playerdatatracking.common.Constants;
-import com.playerdatatracking.exceptions.SecretKeyBadGeneratedException;
+import com.playerdatatracking.exceptions.apikeys.SecretKeyBadGeneratedException;
 import com.playerdatatracking.responses.GenericResponse;
 
 import java.nio.charset.StandardCharsets;

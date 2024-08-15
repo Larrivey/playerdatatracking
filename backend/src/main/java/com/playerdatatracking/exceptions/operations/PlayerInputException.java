@@ -1,4 +1,4 @@
-package com.playerdatatracking.exceptions;
+package com.playerdatatracking.exceptions.operations;
 
 public class PlayerInputException extends Exception{
 	

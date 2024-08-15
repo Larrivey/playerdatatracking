@@ -13,9 +13,9 @@ import com.playerdatatracking.clients.PlayerDataClient;
 import com.playerdatatracking.common.Constants;
 import com.playerdatatracking.common.Methods;
 import com.playerdatatracking.entities.players.MANUAL_TRACKED_PLAYER;
-import com.playerdatatracking.exceptions.MalformedRequestException;
-import com.playerdatatracking.exceptions.PlayerDataDBException;
-import com.playerdatatracking.exceptions.PlayerInputException;
+import com.playerdatatracking.exceptions.db.PlayerDataDBException;
+import com.playerdatatracking.exceptions.operations.MalformedRequestException;
+import com.playerdatatracking.exceptions.operations.PlayerInputException;
 import com.playerdatatracking.repositories.players.MANUAL_TRACKED_PLAYERRepository;
 import com.playerdatatracking.responses.GenericResponse;
 
