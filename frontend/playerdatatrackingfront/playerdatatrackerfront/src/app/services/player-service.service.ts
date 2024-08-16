@@ -13,11 +13,9 @@ export class PlayerService {
   constructor(private http: HttpClient) { }
 
   getPlayer(id: number): Observable<ManualTrackedPlayer | null> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const body = { id: id.toString() };
+    const url = `${this.apiUrl}/${id}`;  // Concatenamos el ID en la URL
 
-    // Hacemos un GET request, pero con el cuerpo
-    return this.http.request<any>('GET', this.apiUrl, { headers, body })
+    return this.http.get<any>(url)
       .pipe(
         map(response => {
           if (response.code === 0) {

@@ -25,6 +25,7 @@ import com.playerdatatracking.responses.GenericResponse;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -64,6 +65,7 @@ public class MainController {
 	
 	@GetMapping("/secretkey")
 	public GenericResponse getSecretKey() throws Exception {
+    	response = new GenericResponse();
 		try {
 			response = operationCrypto.getNewSecretKey();
 		} catch (Exception e) {
@@ -74,6 +76,7 @@ public class MainController {
 	}
 	@PostMapping("/apiKey")
 	public GenericResponse storeApiKey(@RequestBody GenericRequest request){
+    	response = new GenericResponse();
 		operationKeys.setPdClient(pdClient);
 		operationKeys.setEnv(this.env);
 		try {
@@ -87,6 +90,7 @@ public class MainController {
 	}
 	@GetMapping("/apiKey")
 	public GenericResponse getApiKey(@RequestBody GenericRequest request) {
+    	response = new GenericResponse();
 		operationKeys.setPdClient(pdClient);
 		operationKeys.setEnv(this.env);
 		try {
@@ -103,6 +107,7 @@ public class MainController {
 	
 	@GetMapping("/myapiKeys")
 	public GenericResponse getApiKeysbyMail(@RequestBody GenericRequest request) {
+    	response = new GenericResponse();
 		operationKeys.setPdClient(pdClient);
 		operationKeys.setEnv(this.env);
 		try {
@@ -115,6 +120,7 @@ public class MainController {
 	}
     @GetMapping("/players")
     public GenericResponse listPlayers() {
+    	response = new GenericResponse();
     	operationGetAllPlayers.setPdClient(pdClient);
     	try {
     		response = operationGetAllPlayers.ejecutar();
@@ -127,6 +133,7 @@ public class MainController {
     
     @PostMapping("/xslBackendImport")
     public GenericResponse xslImport() {
+    	response = new GenericResponse();
     	String path = env.getProperty("xsl.path");
     	operationXslImport.setPdClient(pdClient);
     	operationXslImport.setResourceLoader(resourceLoader);
@@ -141,6 +148,7 @@ public class MainController {
     
     @GetMapping("/leagues")
     public GenericResponse getAllLeagues() {
+    	response = new GenericResponse();
     	operationGetAllLeagues.setEnv(env);
     	operationGetAllLeagues.setPdClient(pdClient);
     	try {
@@ -154,6 +162,7 @@ public class MainController {
     
     @PostMapping("/player")
     public GenericResponse addPlayer(@RequestBody GenericRequest request) throws PlayerDataDBException, PlayerInputException, ParseException {
+    	response = new GenericResponse();
     	operationAddPlayer.setPdClient(pdClient);
         try {
         	MANUAL_TRACKED_PLAYER player = Methods.bindRequestAsPlayer(request);
@@ -167,6 +176,7 @@ public class MainController {
     
     @DeleteMapping("/player")
     public GenericResponse deletePlayer(@RequestBody GenericRequest request) {
+    	response = new GenericResponse();
     	operationDeletePlayer.setPdClient(pdClient);
     	try {
     		response = operationDeletePlayer.ejecutar(request.getNombre());
@@ -176,17 +186,19 @@ public class MainController {
         }
         return response;
     }
-    @GetMapping("/player")
-    public GenericResponse<MANUAL_TRACKED_PLAYER> getPlayer(@RequestBody GenericRequest request) {
-    	oeprationGetPlayer.setPdClient(pdClient);
-    	try {
-    		response = oeprationGetPlayer.ejecutar(request.getId());
-    	} catch (Exception e) {
-        	response.setCODE(Methods.exceptionCodeManagement(e));
-        	response.setDescription(e.getClass().getSimpleName() + "[]: " + e.getMessage());
+    @GetMapping("/player/{id}")
+    public GenericResponse<MANUAL_TRACKED_PLAYER> getPlayer(@PathVariable("id") Long id) {
+    	response = new GenericResponse();
+        oeprationGetPlayer.setPdClient(pdClient);
+        try {
+            response = oeprationGetPlayer.ejecutar(id);
+        } catch (Exception e) {
+            response.setCODE(Methods.exceptionCodeManagement(e));
+            response.setDescription(e.getClass().getSimpleName() + "[]: " + e.getMessage());
         }
         return response;
     }
+
     
     
     
