@@ -1,15 +1,13 @@
 package com.playerdatatracking.operations.manualdata;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.playerdatatracking.clients.PlayerDataClient;
 import com.playerdatatracking.common.Constants;
 import com.playerdatatracking.entities.players.MANUAL_TRACKED_PLAYER;
 import com.playerdatatracking.exceptions.db.PlayerDataDBException;
+import com.playerdatatracking.exceptions.operations.PlayerInputException;
 import com.playerdatatracking.responses.GenericResponse;
 
-public class GetAllPlayers {
+public class GetPlayer {
 
 	
 	private PlayerDataClient pdClient;
@@ -19,16 +17,13 @@ public class GetAllPlayers {
 	public void setPdClient(PlayerDataClient pdClient) {
 		this.pdClient = pdClient;
 	}
-	
-	
-	public GenericResponse<MANUAL_TRACKED_PLAYER> ejecutar() throws PlayerDataDBException {
-		List<MANUAL_TRACKED_PLAYER> playersList = pdClient.getAllPlayers();
-		response.setEntityList(playersList);
+	public GenericResponse<MANUAL_TRACKED_PLAYER> ejecutar(Long id) throws PlayerDataDBException, PlayerInputException{
+		MANUAL_TRACKED_PLAYER player = pdClient.getPlayer(id);
+		if (player==null)
+			throw new PlayerInputException("no player has been found with that name");
 		response.setCODE(Constants.CODE_OK);
-		if (playersList==null)
-			response.setDescription("No Player Found");
-		else
-			response.setDescription("OK");
+		response.setDescription("OK");
+		response.setEntity(player);
 		return response;
 	}
 }

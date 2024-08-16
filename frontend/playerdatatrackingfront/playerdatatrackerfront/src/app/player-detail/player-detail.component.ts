@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ManualTrackedPlayer } from 'src/app/entitites/manual-tracker-player';
+import { PlayerService } from '../services/player-service.service';
 
 @Component({
   selector: 'app-player-detail',
@@ -7,10 +9,26 @@ import { ManualTrackedPlayer } from 'src/app/entitites/manual-tracker-player';
   styleUrls: ['./player-detail.component.css']
 })
 export class PlayerDetailComponent implements OnInit {
-  @Input() player: ManualTrackedPlayer | null = null;
+  player: ManualTrackedPlayer | null = null;
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private playerService: PlayerService
+  ) {}
 
-  ngOnInit(): void { }
-
+  ngOnInit(): void {
+    const playerId = Number(this.route.snapshot.paramMap.get('id'));
+    if (playerId) {
+      this.playerService.getPlayer(playerId).subscribe(
+        data => {
+          if (data) {
+            this.player = data;
+          } else {
+            console.error('No se pudo obtener la información del jugador.');
+          }
+        },
+        error => console.error('Error en la solicitud:', error)
+      );
+    }
+  }
 }

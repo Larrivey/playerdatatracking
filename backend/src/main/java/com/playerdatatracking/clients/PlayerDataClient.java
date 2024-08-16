@@ -2,6 +2,7 @@ package com.playerdatatracking.clients;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -159,4 +160,13 @@ public class PlayerDataClient {
 		}
 	}
 	
+	@Transactional
+	public MANUAL_TRACKED_PLAYER getPlayer(Long id) throws PlayerDataDBException{
+		try {
+			Optional<MANUAL_TRACKED_PLAYER> player = mpRepository.findById(id);
+			return player.isPresent() ? player.get() : null;
+		} catch (Exception e) {
+			throw new PlayerDataDBException(e.getMessage());
+		}
+	}
 }

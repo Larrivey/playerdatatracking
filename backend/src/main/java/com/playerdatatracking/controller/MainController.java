@@ -17,6 +17,7 @@ import com.playerdatatracking.operations.apikeys.KeysManagement;
 import com.playerdatatracking.operations.manualdata.AddPlayer;
 import com.playerdatatracking.operations.manualdata.DeletePlayer;
 import com.playerdatatracking.operations.manualdata.GetAllPlayers;
+import com.playerdatatracking.operations.manualdata.GetPlayer;
 import com.playerdatatracking.operations.manualdata.XslImport;
 import com.playerdatatracking.repositories.players.MANUAL_TRACKED_PLAYERRepository;
 import com.playerdatatracking.requests.GenericRequest;
@@ -54,6 +55,7 @@ public class MainController {
 	private AESCrypto operationCrypto = new AESCrypto();
 	private KeysManagement operationKeys = new KeysManagement();
 	private DeletePlayer operationDeletePlayer = new DeletePlayer();
+	private GetPlayer oeprationGetPlayer = new GetPlayer();
 	
 	
 // 	---------RESPONSES---------	
@@ -168,6 +170,17 @@ public class MainController {
     	operationDeletePlayer.setPdClient(pdClient);
     	try {
     		response = operationDeletePlayer.ejecutar(request.getNombre());
+    	} catch (Exception e) {
+        	response.setCODE(Methods.exceptionCodeManagement(e));
+        	response.setDescription(e.getClass().getSimpleName() + "[]: " + e.getMessage());
+        }
+        return response;
+    }
+    @GetMapping("/player")
+    public GenericResponse<MANUAL_TRACKED_PLAYER> getPlayer(@RequestBody GenericRequest request) {
+    	oeprationGetPlayer.setPdClient(pdClient);
+    	try {
+    		response = oeprationGetPlayer.ejecutar(request.getId());
     	} catch (Exception e) {
         	response.setCODE(Methods.exceptionCodeManagement(e));
         	response.setDescription(e.getClass().getSimpleName() + "[]: " + e.getMessage());
