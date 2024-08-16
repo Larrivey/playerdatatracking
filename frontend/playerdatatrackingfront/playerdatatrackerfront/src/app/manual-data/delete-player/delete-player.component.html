@@ -11,7 +11,6 @@
       <th class="manual-data-quality">Jugador similar</th>
       <th class="manual-data-quality">Fecha de estudio</th>
       <th class="manual-data-quality">Fecha de Nacimiento</th>
-      <th class="manual-data-quality">Cualidades</th>
     </tr>
   </thead>
   <tbody>
@@ -19,7 +18,9 @@
       <td class="manual-data-row-value">
         <button class="delete-button" (click)="deletePlayer(player)">X</button>
       </td>
-      <td class="manual-data-row-value"><a (click)="selectPlayer(player)" [routerLink]="['/manualdataplayer', player.id]"> {{ player.nombre }} </a></td>
+      <td class="manual-data-row-name-value">
+        <a (click)="selectPlayer(player)"> {{ player.nombre }} </a>
+      </td>
       <td class="manual-data-row-value">{{ player.posicion }}</td>
       <td class="manual-data-row-value">{{ player.age }}</td>
       <td class="manual-data-row-value">{{ player.club }}</td>
@@ -28,7 +29,6 @@
       <td class="manual-data-row-value">{{ player.likeable }}</td>
       <td class="manual-data-row-value">{{ player.date }}</td>
       <td class="manual-data-row-value">{{ player.birth }}</td>
-      <td class="manual-data-row-value">{{ player.qualities }}</td>
     </tr>
   </tbody>
 </table>

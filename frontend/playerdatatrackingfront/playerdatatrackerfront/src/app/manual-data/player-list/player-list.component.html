@@ -10,12 +10,11 @@
       <th class="manual-data-quality" (click)="sortData('likeable')">Jugador similar <span class="sort-icon asc" [ngClass]="{'active': isSortedAsc('likeable')}">&#9650;</span><span class="sort-icon desc" [ngClass]="{'active': isSortedDesc('likeable')}">&#9660;</span></th>
       <th class="manual-data-quality" (click)="sortData('date')">Fecha de estudio <span class="sort-icon asc" [ngClass]="{'active': isSortedAsc('date')}">&#9650;</span><span class="sort-icon desc" [ngClass]="{'active': isSortedDesc('date')}">&#9660;</span></th>
       <th class="manual-data-quality" (click)="sortData('birth')">Fecha de Nacimiento <span class="sort-icon asc" [ngClass]="{'active': isSortedAsc('birth')}">&#9650;</span><span class="sort-icon desc" [ngClass]="{'active': isSortedDesc('birth')}">&#9660;</span></th>
-      <th class="manual-data-quality" (click)="sortData('qualities')">Cualidades <span class="sort-icon asc" [ngClass]="{'active': isSortedAsc('qualities')}">&#9650;</span><span class="sort-icon desc" [ngClass]="{'active': isSortedDesc('qualities')}">&#9660;</span></th>
     </tr>
   </thead>
   <tbody>
     <tr class="manual-data-row" *ngFor="let player of entityList">
-      <td class="manual-data-row-value">
+      <td class="manual-data-row-name-value">
         <a (click)="selectPlayer(player)"> {{ player.nombre }} </a>
       </td>
       <td class="manual-data-row-value">{{ player.posicion }}</td>
@@ -26,7 +25,6 @@
       <td class="manual-data-row-value">{{ player.likeable }}</td>
       <td class="manual-data-row-value">{{ player.date }}</td>
       <td class="manual-data-row-value">{{ player.birth }}</td>
-      <td class="manual-data-row-value">{{ player.qualities }}</td>
     </tr>
   </tbody>
 </table>

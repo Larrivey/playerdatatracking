@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ManualTrackedPlayer } from 'src/app/entitites/manual-tracker-player';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-delete-player',
@@ -13,7 +14,7 @@ export class DeletePlayerComponent {
   selectedPlayer: ManualTrackedPlayer | null = null;
   @Output() playerDeleted: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router : Router) { }
 
   deletePlayer(player: ManualTrackedPlayer) {
     this.http.delete(`http://localhost:8080/player`, { body: { nombre: player.nombre } })
@@ -29,6 +30,6 @@ export class DeletePlayerComponent {
       });
   }
   selectPlayer(player: ManualTrackedPlayer) {
-    this.selectedPlayer = player;
+    this.router.navigate(['/manualdataplayer', player.id]);
   }
 }

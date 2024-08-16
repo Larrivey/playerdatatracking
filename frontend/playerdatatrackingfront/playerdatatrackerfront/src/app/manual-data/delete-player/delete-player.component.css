@@ -65,3 +65,20 @@
 .delete-button:hover {
   background-color: darkred;
 }
+.manual-data-row-name-value{
+  text-align: center;
+  border-right:1px solid #878787;
+  border-left:1px solid #878787;
+  border-top:1px solid #a5a5a5;
+  border-bottom:1px solid #a5a5a5;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.manual-data-row-name-value:hover {
+  background-color: #e2ca87; /* Fondo más oscuro */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transición suave */
+  cursor: pointer;
+}

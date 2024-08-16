@@ -3,35 +3,94 @@
   <form (ngSubmit)="onSubmit()" #playerForm="ngForm">
     <div>
       <label for="nombre">Nombre:</label>
-      <input type="text" id="nombre" required [(ngModel)]="newPlayer.nombre" name="nombre" />
+      <input
+        type="text"
+        id="nombre"
+        required
+        [(ngModel)]="newPlayer.nombre"
+        name="nombre"
+        [class.error-border]="formErrors['nombre']" />
+      <div *ngIf="formErrors['nombre']" class="error-message">
+        {{ formErrors['nombre'] }}
+      </div>
     </div>
     <div>
       <label for="nota">Nota:</label>
-      <input type="number" id="nota" required [(ngModel)]="newPlayer.nota" name="nota" />
+      <input
+        type="number"
+        id="nota"
+        required
+        [(ngModel)]="newPlayer.nota"
+        name="nota"
+        [class.error-border]="formErrors['nota']" />
+      <div *ngIf="formErrors['nota']" class="error-message">
+        {{ formErrors['nota'] }}
+      </div>
     </div>
     <div>
       <label for="club">Club:</label>
-      <input type="text" id="club" required [(ngModel)]="newPlayer.club" name="club" />
+      <input
+        type="text"
+        id="club"
+        required
+        [(ngModel)]="newPlayer.club"
+        name="club"
+        [class.error-border]="formErrors['club']" />
+      <div *ngIf="formErrors['club']" class="error-message">
+        {{ formErrors['club'] }}
+      </div>
     </div>
     <div>
       <label for="posicion">Posición:</label>
-      <input type="text" id="posicion" required [(ngModel)]="newPlayer.posicion" name="posicion" />
+      <input
+        type="text"
+        id="posicion"
+        required
+        [(ngModel)]="newPlayer.posicion"
+        name="posicion"
+        [class.error-border]="formErrors['posicion']" />
+      <div *ngIf="formErrors['posicion']" class="error-message">
+        {{ formErrors['posicion'] }}
+      </div>
     </div>
     <div>
       <label for="likeable">Jugador Similar:</label>
-      <input type="text" id="likeable" required [(ngModel)]="newPlayer.likeable" name="likeable" />
+      <input
+        type="text"
+        id="likeable"
+        required
+        [(ngModel)]="newPlayer.likeable"
+        name="likeable" />
     </div>
     <div>
       <label for="birth">Fecha de Nacimiento:</label>
-      <input type="date" id="birth" required [(ngModel)]="newPlayer.birth" name="birth" />
+      <input
+        type="date"
+        id="birth"
+        required
+        [(ngModel)]="newPlayer.birth"
+        name="birth"
+        [class.error-border]="birthDateError"
+        [attr.max]="todayDate" />
+      <div *ngIf="birthDateError" class="error-message">
+        {{ birthDateError }}
+      </div>
     </div>
     <div>
       <label for="mostLikeDestination">Destino Más Probable:</label>
-      <input type="text" id="mostLikeDestination" [(ngModel)]="newPlayer.mostLikeDestination" name="mostLikeDestination" />
+      <input
+        type="text"
+        id="mostLikeDestination"
+        [(ngModel)]="newPlayer.mostLikeDestination"
+        name="mostLikeDestination" />
     </div>
     <div>
       <label for="qualities">Cualidades (separadas por comas):</label>
-      <input type="text" id="qualities" [(ngModel)]="qualitiesInput" name="qualities" />
+      <input
+        type="text"
+        id="qualities"
+        [(ngModel)]="qualitiesInput"
+        name="qualities" />
     </div>
     <button type="submit">Añadir Jugador</button>
   </form>

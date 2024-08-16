@@ -3,7 +3,6 @@
     <button class="toggle-button" (click)="togglePlayers()"> {{ isDataVisible ? 'Ocultar información' : 'Cargar jugadores' }}</button>
     <button class="toggle-button" (click)="navigateAddPlayer()"> Añadir jugador </button>
     <button class="toggle-button" (click)="isDataVisible && toggleDeleteMode()" [disabled]="!isDataVisible"> {{ isDeleteMode ? 'Finalizar borrado' : 'Borrar jugadores' }} </button>
-
   </div>
   <hr *ngIf="isDataVisible"/>
   <div class="manual-data-table-container" *ngIf="isDataVisible">

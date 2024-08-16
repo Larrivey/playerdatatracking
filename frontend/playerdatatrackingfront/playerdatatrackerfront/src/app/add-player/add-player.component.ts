@@ -12,14 +12,31 @@ import { ManualTrackedPlayer } from '../entitites/manual-tracker-player';
 export class AddPlayerComponent {
   newPlayer: Partial<ManualTrackedPlayer> = {};
   qualitiesInput: string = '';
+  birthDateError: string | null = null;
+  formErrors: { [key: string]: string } = {};
+  todayDate: string;
 
   constructor(
     private router: Router,
     private http: HttpClient,
     private toastr: ToastrService
-  ) {}
+  ) {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Los meses son 0-indexados
+    const day = String(today.getDate()).padStart(2, '0');
+    this.todayDate = `${year}-${month}-${day}`;
+
+  }
 
   onSubmit() {
+    this.clearErrors();
+
+    // Validación del formulario
+    if (this.isFormInvalid()) {
+      return;
+    }
+
     // Parsear las cualidades
     if (this.qualitiesInput) {
       this.newPlayer.qualities = this.qualitiesInput.split(',').map(quality => quality.trim());
@@ -30,6 +47,11 @@ export class AddPlayerComponent {
     this.newPlayer.date = this.formatDate(currentDate); // Formatea la fecha
     if (this.newPlayer.birth) {
       const birthDate = new Date(this.newPlayer.birth);
+      if (birthDate > currentDate) {
+        this.birthDateError = 'La fecha de nacimiento no puede ser una fecha futura';
+        this.newPlayer.birth = ''; // Limpiar el valor incorrecto
+        return;
+      }
       const age = currentDate.getFullYear() - birthDate.getFullYear();
       this.newPlayer.age = age;
       this.newPlayer.birth = this.formatDate(birthDate); // Formatea la fecha de nacimiento
@@ -44,8 +66,8 @@ export class AddPlayerComponent {
             timeOut: 3000,
             progressBar: true,
             closeButton: true,
-
           });
+          this.router.navigate(['/some-path']); // Redirigir después de agregar el jugador
         } else {
           this.toastr.error(response.description, '', {
             timeOut: 3000,
@@ -71,4 +93,31 @@ export class AddPlayerComponent {
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   }
+
+  private clearErrors() {
+    this.formErrors = {};
+    this.birthDateError = null;
+  }
+
+  private isFormInvalid(): boolean {
+    let invalid = false;
+
+    // Validaciones de campos requeridos
+    ['nombre', 'nota', 'club', 'posicion', 'birth'].forEach(field => {
+      if (!(this.newPlayer as any)[field]) {
+        this.formErrors[field] = 'Este campo es obligatorio';
+        invalid = true;
+      }
+    });
+
+    // Validación de caracteres para nombre
+    const namePattern = /^[A-Za-z\s]+$/;
+    if (this.newPlayer.nombre && !namePattern.test(this.newPlayer.nombre)) {
+      this.formErrors['nombre'] = 'El nombre solo puede contener letras y espacios';
+      invalid = true;
+    }
+
+    return invalid;
+  }
+
 }
