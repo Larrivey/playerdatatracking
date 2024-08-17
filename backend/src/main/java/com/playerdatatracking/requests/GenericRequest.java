@@ -25,6 +25,7 @@ public class GenericRequest {
     private String mail;
     private String plan;
     private String apiKey;
+    private String update;
     private int idService; 
     
     
@@ -155,6 +156,14 @@ public class GenericRequest {
 
 	public void setApiKey(String apiKey) {
 		this.apiKey = apiKey;
+	}
+
+	public String getUpdate() {
+		return update;
+	}
+
+	public void setUpdate(String update) {
+		this.update = update;
 	}
     
     

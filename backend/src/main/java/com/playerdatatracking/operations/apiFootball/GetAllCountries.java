@@ -1,6 +1,5 @@
 package com.playerdatatracking.operations.apiFootball;
 
-
 import java.io.File;
 import java.io.FileReader;
 
@@ -10,7 +9,6 @@ import com.playerdatatracking.clients.ApiFootballClient;
 import com.playerdatatracking.clients.PlayerDataClient;
 import com.playerdatatracking.common.Constants;
 import com.playerdatatracking.entities.keys.Keys;
-import com.playerdatatracking.entities.players.MANUAL_TRACKED_PLAYER;
 import com.playerdatatracking.exceptions.apikeys.ApiKeyManagementException;
 import com.playerdatatracking.exceptions.file.NotCreatedJsonFileResponse;
 import com.playerdatatracking.exceptions.file.NotFilledJsonFileResponse;
@@ -18,12 +16,11 @@ import com.playerdatatracking.operations.apikeys.KeysManagement;
 import com.playerdatatracking.requests.GenericRequest;
 import com.playerdatatracking.responses.GenericResponse;
 
-public class GetAllLeagues {
+public class GetAllCountries {
 
-	
 	private ApiFootballClient restClient;
 	private GenericResponse response;
-	String filePath = "src/main/resources/json/apiFotball/leagues/leagues.json";
+	String filePath = "src/main/resources/json/apiFotball/countries/countries.json";
 	private PlayerDataClient pdClient;
 	private KeysManagement keyMethods = new KeysManagement();
 	private Environment env;
@@ -47,7 +44,7 @@ public class GetAllLeagues {
 				throw new ApiKeyManagementException("no hay almacenada ninguna key valida");
 			if (keyMethods.checkReadiness(apiKey)) {
 				Keys unctyptedKey = keyMethods.uncryptKey(apiKey);
-				restClient.getLeaguesInfo(unctyptedKey.getValor());
+				restClient.getCountriesInfo(unctyptedKey.getValor());
 				keyMethods.useKey(apiKey);
 			}
 			else {
@@ -84,4 +81,5 @@ public class GetAllLeagues {
 	public void updateLeagues() {
 		
 	}
+	
 }

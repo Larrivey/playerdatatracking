@@ -1,5 +1,4 @@
 # LISTA DE TAREAS POR HACER BREVEMENTE DESCRITAS RELACIONADAS CON EL BACKEND
-- En caso de obtener un error controlado cuando la petición no es valida por un problema de la KEY o de la cuenta devolver un error controlado.
 - Ligas en BBDD y script de actualizacion de ligas
 - Paises en BBDD con sus correspondiente tabla y asociacion
 - Actualizar scripts de creacion de tablas

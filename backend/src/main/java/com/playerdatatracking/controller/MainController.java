@@ -7,11 +7,13 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 
 import com.playerdatatracking.clients.PlayerDataClient;
+import com.playerdatatracking.common.Constants;
 import com.playerdatatracking.common.Methods;
 import com.playerdatatracking.entities.players.MANUAL_TRACKED_PLAYER;
 import com.playerdatatracking.exceptions.db.PlayerDataDBException;
 import com.playerdatatracking.exceptions.operations.PlayerInputException;
 import com.playerdatatracking.operations.Crypto.AESCrypto;
+import com.playerdatatracking.operations.apiFootball.GetAllCountries;
 import com.playerdatatracking.operations.apiFootball.GetAllLeagues;
 import com.playerdatatracking.operations.apikeys.KeysManagement;
 import com.playerdatatracking.operations.manualdata.AddPlayer;
@@ -57,6 +59,7 @@ public class MainController {
 	private KeysManagement operationKeys = new KeysManagement();
 	private DeletePlayer operationDeletePlayer = new DeletePlayer();
 	private GetPlayer oeprationGetPlayer = new GetPlayer();
+	private GetAllCountries operationGetCountries = new GetAllCountries();
 	
 	
 // 	---------RESPONSES---------	
@@ -146,13 +149,60 @@ public class MainController {
     	return response;
     }
     
-    @GetMapping("/leagues")
-    public GenericResponse getAllLeagues() {
+    @PostMapping("/leagues")
+    public GenericResponse getAllLeagues(@RequestBody GenericRequest request) {
     	response = new GenericResponse();
     	operationGetAllLeagues.setEnv(env);
     	operationGetAllLeagues.setPdClient(pdClient);
     	try {
-    		response = operationGetAllLeagues.ejecutar();
+    		response = operationGetAllLeagues.ejecutar(request);
+    	} catch (Exception e) {
+    		response.setCODE(Methods.exceptionCodeManagement(e));
+    		response.setDescription(e.getClass().getSimpleName() + "[]: " + e.getMessage());
+    	}
+    	return response;
+    }
+    @PostMapping("/countries")
+    public GenericResponse getAllCountries (@RequestBody GenericRequest request) {
+    	response = new GenericResponse();
+    	operationGetCountries.setEnv(env);
+    	operationGetCountries.setPdClient(pdClient);
+    	try {
+    		response = operationGetCountries.ejecutar(request);
+    	} catch (Exception e) {
+    		response.setCODE(Methods.exceptionCodeManagement(e));
+    		response.setDescription(e.getClass().getSimpleName() + "[]: " + e.getMessage());
+    	}
+    	return response;
+    	
+    }
+    
+    @PostMapping("/updateCountries")
+    public GenericResponse updateCountries() {
+    	response = new GenericResponse();
+    	operationGetCountries.setEnv(env);
+    	operationGetCountries.setPdClient(pdClient);
+    	try {
+    		operationGetCountries.updateLeagues();
+    		response.setCODE(Constants.CODE_OK);
+    		response.setDescription("OK");
+    	} catch (Exception e) {
+    		response.setCODE(Methods.exceptionCodeManagement(e));
+    		response.setDescription(e.getClass().getSimpleName() + "[]: " + e.getMessage());
+    	}
+    	return response;
+    }
+    
+    
+    @PostMapping("/updateLeagues")
+    public GenericResponse updateLeagues() {
+    	response = new GenericResponse();
+    	operationGetAllLeagues.setEnv(env);
+    	operationGetAllLeagues.setPdClient(pdClient);
+    	try {
+    		operationGetAllLeagues.updateLeagues();
+    		response.setCODE(Constants.CODE_OK);
+    		response.setDescription("OK");
     	} catch (Exception e) {
     		response.setCODE(Methods.exceptionCodeManagement(e));
     		response.setDescription(e.getClass().getSimpleName() + "[]: " + e.getMessage());
