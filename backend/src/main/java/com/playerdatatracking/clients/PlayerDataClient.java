@@ -7,15 +7,20 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import com.playerdatatracking.entities.IndexalData.MANUAL_TRACKED_PLAYER;
-import com.playerdatatracking.entities.IndexalData.PLAYER_QUALITIES;
+import com.playerdatatracking.entities.indexaldata.MANUAL_TRACKED_PLAYER;
+import com.playerdatatracking.entities.indexaldata.PLAYER_QUALITIES;
+import com.playerdatatracking.entities.indexaldata.Pais;
+import com.playerdatatracking.entities.indexaldata.Torneo;
 import com.playerdatatracking.entities.keys.Keys;
 import com.playerdatatracking.exceptions.db.PlayerDataDBException;
+import com.playerdatatracking.repositories.indexaldata.MANUAL_TRACKED_PLAYERRepository;
+import com.playerdatatracking.repositories.indexaldata.PLAYER_QUALITIESRepository;
+import com.playerdatatracking.repositories.indexaldata.PaisRepository;
+import com.playerdatatracking.repositories.indexaldata.TorneoRepository;
 import com.playerdatatracking.repositories.keys.API_FOOTBALL_KEYSRepository;
-import com.playerdatatracking.repositories.players.MANUAL_TRACKED_PLAYERRepository;
-import com.playerdatatracking.repositories.players.PLAYER_QUALITIESRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -30,6 +35,12 @@ public class PlayerDataClient {
 	private PLAYER_QUALITIESRepository pqRepository;
 	@Autowired
 	private API_FOOTBALL_KEYSRepository akRepository;
+	@Autowired
+	private PaisRepository ctRepository;
+	@Autowired
+	private TorneoRepository trRepository;
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 	
 	@Transactional
 	public boolean savePlayer(MANUAL_TRACKED_PLAYER player) throws PlayerDataDBException {
@@ -166,6 +177,42 @@ public class PlayerDataClient {
 			Optional<MANUAL_TRACKED_PLAYER> player = mpRepository.findById(id);
 			return player.isPresent() ? player.get() : null;
 		} catch (Exception e) {
+			throw new PlayerDataDBException(e.getMessage());
+		}
+	}
+	
+	@Transactional
+	public boolean saveCountry(Pais pais) throws PlayerDataDBException{
+		try {
+			ctRepository.save(pais);
+			return true;
+		} catch(Exception e) {
+			throw new PlayerDataDBException(e.getMessage());
+		}
+	}
+	@Transactional
+	public void deleteAllCountries() throws PlayerDataDBException{
+		try {
+			ctRepository.deleteAll();
+			jdbcTemplate.execute("ALTER SEQUENCE pais_id_seq RESTART WITH 1");
+		} catch(Exception e) {
+			throw new PlayerDataDBException(e.getMessage());
+		}
+	}
+	@Transactional
+	public boolean saveTorneo(Torneo tr) throws PlayerDataDBException{
+		try {
+			trRepository.save(tr);
+			return true;
+		} catch(Exception e) {
+			throw new PlayerDataDBException(e.getMessage());
+		}
+	}
+	@Transactional
+	public void deleteAllTorneos() throws PlayerDataDBException{
+		try {
+			trRepository.deleteAll();
+		} catch(Exception e) {
 			throw new PlayerDataDBException(e.getMessage());
 		}
 	}

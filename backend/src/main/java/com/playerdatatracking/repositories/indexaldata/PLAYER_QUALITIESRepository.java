@@ -1,11 +1,11 @@
-package com.playerdatatracking.repositories.players;
+package com.playerdatatracking.repositories.indexaldata;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.playerdatatracking.entities.IndexalData.PLAYER_QUALITIES;
+import com.playerdatatracking.entities.indexaldata.PLAYER_QUALITIES;
 
 @Repository
 public interface PLAYER_QUALITIESRepository extends JpaRepository<PLAYER_QUALITIES, Long> {

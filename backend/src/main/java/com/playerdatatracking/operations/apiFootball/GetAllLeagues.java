@@ -9,7 +9,7 @@ import org.springframework.core.env.Environment;
 import com.playerdatatracking.clients.ApiFootballClient;
 import com.playerdatatracking.clients.PlayerDataClient;
 import com.playerdatatracking.common.Constants;
-import com.playerdatatracking.entities.IndexalData.MANUAL_TRACKED_PLAYER;
+import com.playerdatatracking.entities.indexaldata.MANUAL_TRACKED_PLAYER;
 import com.playerdatatracking.entities.keys.Keys;
 import com.playerdatatracking.exceptions.apikeys.ApiKeyManagementException;
 import com.playerdatatracking.exceptions.file.NotCreatedJsonFileResponse;

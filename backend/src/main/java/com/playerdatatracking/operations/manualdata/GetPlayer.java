@@ -2,7 +2,7 @@ package com.playerdatatracking.operations.manualdata;
 
 import com.playerdatatracking.clients.PlayerDataClient;
 import com.playerdatatracking.common.Constants;
-import com.playerdatatracking.entities.IndexalData.MANUAL_TRACKED_PLAYER;
+import com.playerdatatracking.entities.indexaldata.MANUAL_TRACKED_PLAYER;
 import com.playerdatatracking.exceptions.db.PlayerDataDBException;
 import com.playerdatatracking.exceptions.operations.PlayerInputException;
 import com.playerdatatracking.responses.GenericResponse;

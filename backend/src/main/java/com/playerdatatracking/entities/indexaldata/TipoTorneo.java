@@ -1,4 +1,4 @@
-package com.playerdatatracking.entities.IndexalData;
+package com.playerdatatracking.entities.indexaldata;
 
 import java.io.Serializable;
 
@@ -10,19 +10,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "pais", schema = "public")
-public class Pais implements Serializable {
+@Table(name = "tipo_torneo", schema = "public")
+public class TipoTorneo implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "name")
-    private String name;
-    
-    @Column(name = "code")
-    private String code;
+    @Column(name = "tipo")
+    private String tipo;
 
     // Getters and Setters
 
@@ -34,21 +31,11 @@ public class Pais implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
-
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-    
-    
 }

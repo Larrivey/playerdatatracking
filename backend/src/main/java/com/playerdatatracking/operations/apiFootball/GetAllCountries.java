@@ -2,14 +2,19 @@ package com.playerdatatracking.operations.apiFootball;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 
 import org.springframework.core.env.Environment;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.playerdatatracking.clients.ApiFootballClient;
 import com.playerdatatracking.clients.PlayerDataClient;
 import com.playerdatatracking.common.Constants;
+import com.playerdatatracking.entities.indexaldata.Pais;
 import com.playerdatatracking.entities.keys.Keys;
 import com.playerdatatracking.exceptions.apikeys.ApiKeyManagementException;
+import com.playerdatatracking.exceptions.db.PlayerDataDBException;
 import com.playerdatatracking.exceptions.file.NotCreatedJsonFileResponse;
 import com.playerdatatracking.exceptions.file.NotFilledJsonFileResponse;
 import com.playerdatatracking.operations.apikeys.KeysManagement;
@@ -67,7 +72,7 @@ public class GetAllCountries {
 	            fileReader.close();
 	            
 	        if (request.getUpdate().equalsIgnoreCase("true"))
-	        	updateLeagues();
+	        	updateCountries();
 	        		
 	        response.setCODE(Constants.CODE_OK);
 	        response.setDescription("OK");
@@ -78,8 +83,29 @@ public class GetAllCountries {
 		}
 	}
 	
-	public void updateLeagues() {
-		
+	public void updateCountries() throws PlayerDataDBException {
+	    ObjectMapper objectMapper = new ObjectMapper();
+	    try {
+	    	pdClient.deleteAllCountries();
+	        File jsonFile = new File(filePath);
+	        JsonNode root = objectMapper.readTree(jsonFile);
+	        JsonNode responseNode = root.path("response");
+
+	        if (responseNode.isArray()) {
+	            for (JsonNode node : responseNode) {
+	                String name = node.path("name").asText();
+	                String code = node.path("code").asText();
+
+	                Pais pais = new Pais();
+	                pais.setName(name);
+	                pais.setCode(code);
+	                pdClient.saveCountry(pais);
+	            }
+	        }
+
+	    } catch (IOException e) {
+	        throw new PlayerDataDBException("Error while reading or processing the JSON file", e);
+	    }
 	}
 	
 }

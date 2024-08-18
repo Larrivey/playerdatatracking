@@ -9,7 +9,7 @@ import org.springframework.core.io.ResourceLoader;
 import com.playerdatatracking.clients.PlayerDataClient;
 import com.playerdatatracking.common.Constants;
 import com.playerdatatracking.common.Methods;
-import com.playerdatatracking.entities.IndexalData.MANUAL_TRACKED_PLAYER;
+import com.playerdatatracking.entities.indexaldata.MANUAL_TRACKED_PLAYER;
 import com.playerdatatracking.exceptions.db.PlayerDataDBException;
 import com.playerdatatracking.exceptions.operations.PlayerInputException;
 import com.playerdatatracking.operations.Crypto.AESCrypto;
@@ -21,7 +21,7 @@ import com.playerdatatracking.operations.manualdata.DeletePlayer;
 import com.playerdatatracking.operations.manualdata.GetAllPlayers;
 import com.playerdatatracking.operations.manualdata.GetPlayer;
 import com.playerdatatracking.operations.manualdata.XslImport;
-import com.playerdatatracking.repositories.players.MANUAL_TRACKED_PLAYERRepository;
+import com.playerdatatracking.repositories.indexaldata.MANUAL_TRACKED_PLAYERRepository;
 import com.playerdatatracking.requests.GenericRequest;
 import com.playerdatatracking.responses.GenericResponse;
 
@@ -183,7 +183,7 @@ public class MainController {
     	operationGetCountries.setEnv(env);
     	operationGetCountries.setPdClient(pdClient);
     	try {
-    		operationGetCountries.updateLeagues();
+    		operationGetCountries.updateCountries();
     		response.setCODE(Constants.CODE_OK);
     		response.setDescription("OK");
     	} catch (Exception e) {

@@ -1,4 +1,4 @@
-package com.playerdatatracking.entities.IndexalData;
+package com.playerdatatracking.entities.indexaldata;
 
 
 
