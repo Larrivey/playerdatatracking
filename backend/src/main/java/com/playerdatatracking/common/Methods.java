@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.playerdatatracking.entities.players.MANUAL_TRACKED_PLAYER;
+import com.playerdatatracking.entities.IndexalData.MANUAL_TRACKED_PLAYER;
 import com.playerdatatracking.exceptions.operations.MalformedRequestException;
 import com.playerdatatracking.requests.GenericRequest;
 

@@ -1,4 +1,4 @@
-package com.playerdatatracking.entities.players;
+package com.playerdatatracking.entities.IndexalData;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

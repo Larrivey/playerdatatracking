@@ -9,9 +9,9 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import com.playerdatatracking.entities.IndexalData.MANUAL_TRACKED_PLAYER;
+import com.playerdatatracking.entities.IndexalData.PLAYER_QUALITIES;
 import com.playerdatatracking.entities.keys.Keys;
-import com.playerdatatracking.entities.players.MANUAL_TRACKED_PLAYER;
-import com.playerdatatracking.entities.players.PLAYER_QUALITIES;
 import com.playerdatatracking.exceptions.db.PlayerDataDBException;
 import com.playerdatatracking.repositories.keys.API_FOOTBALL_KEYSRepository;
 import com.playerdatatracking.repositories.players.MANUAL_TRACKED_PLAYERRepository;
