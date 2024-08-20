@@ -86,4 +86,96 @@ public class Methods {
 			throw new MalformedRequestException("Error found while checking input parameters, the following ones are not present or whit a wrong type: " + errors.toString());
 	}
 	
+	public static int getTournamentType(String name, String country, String type) {
+		switch (country) {
+		case Constants.WORLD:
+			switch(name) {
+			case Constants.EURO:
+			case Constants.CONFEDERATIONS:
+			case Constants.MUNDIAL:
+			case Constants.ASIAN_GAMES:
+			case Constants.ASIAN_CUP:
+			case Constants.WWORLD_CUP:
+			case Constants.OLYMPICS:
+			case Constants.CECAFA:
+			case Constants.SAFF:
+			case Constants.MUNDIAL_QF_PO:
+			case Constants.AFC:
+			case Constants.AFRICAN_NC:
+			case Constants.AFF:
+			case Constants.GOLD_CUP:
+			case Constants.EAFF:
+			case Constants.AFRICAN_CUP:
+			case Constants.WOLYMPICS:
+			case Constants.GULF_CUP:
+			case Constants.OFC:
+			case Constants.EURO_U21:
+			case Constants.MUNDIAL_U20:
+			case Constants.COPA_AMERICA:
+			case Constants.EU_NATIONS_LEAGUE:
+			case Constants.CONCACAF_QF:
+			case Constants.CF_MUNDIAL_QF:
+			case Constants.EU_MUNDIAL_QF:
+			case Constants.OC_MUNDIAL_QF:
+			case Constants.SAA_MUNDIAL_QF:
+			case Constants.AF_MUNDIAL_QF:
+			case Constants.AS_MUNDIAL_QF:
+			case Constants.EURO_U19:
+			case Constants.CONCACAF_U20:
+			case Constants.ASIAN_CUP_QF:
+			case Constants.PACIFIC_GAMES:
+			case Constants.SUDAMERICANO_U20:
+			case Constants.MUNDIAL_U17:
+			case Constants.ASIAN_CUP_U23:
+			case Constants.AF_NATIONS_LEAGUE:
+			case Constants.AF_NATIONS_CUP_U20:
+			case Constants.AF_OLYMPICS_QF:
+			case Constants.GOLD_CUP_QF:
+			case Constants.COSAFA:
+			case Constants.ARAB_CUP:
+			case Constants.U20_ELITE:
+			case Constants.AF_CUP_NATIONS_QF:
+			case Constants.SAA_YOUTH_GAMES:
+			case Constants.AFC_U23_QF:
+			case Constants.AF_U23_CUP_NATIONS_QF:
+			case Constants.EU_U17_QF:
+			case Constants.EU_U19_QF:
+			case Constants.AFF_U23:
+			case Constants.SEAS_GAMES:
+			case Constants.FINALISSIMA:
+			case Constants.MEDITERRANEAN_GAMES:
+			case Constants.EU_U17:
+			case Constants.AFF_U19:
+			case Constants.ARAB_CUP_U20:
+			case Constants.CAC_GAMES:
+			case Constants.AFC_U17:
+			case Constants.CAF_U23_CUP:
+			case Constants.CONCACAF_CAA:
+			case Constants.AF_GAMES:
+			case Constants.EU_U21_QF:
+			case Constants.EURO_QF:
+			case Constants.CONCACAF_U17:
+			case Constants.AFC_U20:
+			case Constants.CONMEBOL_U17:
+			case Constants.CAF_U17:
+			case Constants.CAFA:
+			case Constants.CONMEBOL_OLYMPICS_QF:
+			case Constants.CONCACAF_U20_QF:
+			case Constants.WAFF_U23:
+			case Constants.OLYMPICS_QF:
+			case Constants.OFC_U19:
+				return Constants.INTERNATIONAL_ID;
+			default:
+				return Constants.COPA_INT;
+			}
+		default:
+			switch(type) {
+			case Constants.LEAGUE:
+				return Constants.LEAGUE_ID;
+			default:
+				return Constants.CUP_ID;
+			}
+				
+		}
+	}
 }

@@ -3,15 +3,22 @@ package com.playerdatatracking.operations.apiFootball;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 
 import org.springframework.core.env.Environment;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.playerdatatracking.clients.ApiFootballClient;
 import com.playerdatatracking.clients.PlayerDataClient;
 import com.playerdatatracking.common.Constants;
+import com.playerdatatracking.common.Methods;
 import com.playerdatatracking.entities.indexaldata.MANUAL_TRACKED_PLAYER;
+import com.playerdatatracking.entities.indexaldata.Pais;
+import com.playerdatatracking.entities.indexaldata.Torneo;
 import com.playerdatatracking.entities.keys.Keys;
 import com.playerdatatracking.exceptions.apikeys.ApiKeyManagementException;
+import com.playerdatatracking.exceptions.db.PlayerDataDBException;
 import com.playerdatatracking.exceptions.file.NotCreatedJsonFileResponse;
 import com.playerdatatracking.exceptions.file.NotFilledJsonFileResponse;
 import com.playerdatatracking.operations.apikeys.KeysManagement;
@@ -81,7 +88,41 @@ public class GetAllLeagues {
 		}
 	}
 	
-	public void updateLeagues() {
-		
+	public void updateLeagues() throws PlayerDataDBException {
+	    ObjectMapper objectMapper = new ObjectMapper();
+	    try {
+	    	pdClient.deleteAllCountries();
+	        File jsonFile = new File(filePath);
+	        JsonNode root = objectMapper.readTree(jsonFile);
+	        JsonNode responseNode = root.path("response");
+
+	        if (responseNode.isArray()) {
+	            for (JsonNode node : responseNode) {
+	            	JsonNode league = node.path("league");
+	                String id = league.path("id").asText();
+	                String name = league.path("name").asText();
+	                String type = league.path("type").asText();
+	                
+	                JsonNode country = node.path("country");
+	                String countryName = country.path("path").asText();
+	                
+	                Torneo torneo = new Torneo();
+	                torneo.setId(Long.parseLong(id));
+	                torneo.setName(name);
+	                torneo.setLastupdate(null);
+	                torneo.setStudied(false);
+	                torneo.setFbrefid(null);
+	                torneo.setFbrefdata(false);
+	                int tipoTorneo = Methods.getTournamentType(name, countryName, type);
+	                torneo.setTipoTorneo(Integer.toString(tipoTorneo));
+	                torneo.setName(countryName);
+	                
+	                
+	            }
+	        }
+
+	    } catch (IOException e) {
+	        throw new PlayerDataDBException("Error while reading or processing the JSON file", e);
+	    }
 	}
 }
